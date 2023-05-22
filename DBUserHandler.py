@@ -33,7 +33,7 @@ class DBHandler():
         """
         self.dbPath = 'SkateDB.db'
         if not os.path.isfile(self.dbPath):
-            raise Exception("Database file not found in base program directory")
+            raise FileNotFoundError("Database file not found in base program directory")
         self.dbConnection = sqlite3.connect(self.dbPath)
         self.dbCursor = self.dbConnection.cursor()
 
@@ -67,11 +67,11 @@ class DBHandler():
         statement = 'SELECT FirstName, LastName FROM Users WHERE FirstName=? AND LastName = ?;'
         arg = (FirstName, LastName,)
         if self.dbCursor.execute(statement, arg).fetchone()[0] is not None:
-            raise Exception('Duplicate First and Last name pair')
+            raise DataError('Duplicate First and Last name pair')
         statement = 'SELECT Email FROM Users WHERE Email=?;'
         arg = (Email,)
         if self.dbCursor.execute(statement, arg).fetchone()[0] is not None:
-            raise Exception('Duplicate Email found in table')
+            raise DataError('Duplicate Email found in table')
 
     def retrievePassHash(self, UID=None, FirstName=None, LastName=None, Email=None):
         """
@@ -95,7 +95,7 @@ class DBHandler():
             arg = (str(Email),)
             return self.dbCursor.execute(statement, arg).fetchone()[0]
         else:
-            raise Exception("No arguments given")
+            raise ValueError("No arguments given")
 
     def hashPassword(self,rawPassword):
         """
