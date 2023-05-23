@@ -18,3 +18,23 @@ def information():
 @views.route("/times")
 def times():
     return render_template("times.html")
+
+@views.route("/login")
+def login():
+    return render_template("login.html")
+
+@views.route("/createAccount")
+def createAccount():
+    return render_template("createAccount.html")
+
+
+
+@app.route('/register', methods=['POST'])
+def register():
+    firstname = request.form['firstname']
+    lastname = request.form['lastname']
+    username = request.form['username']
+    password = request.form['password']
+    email = request.form['email']
+    #getting strings from the create account form
+    #TODO enter information into the user table within DB
