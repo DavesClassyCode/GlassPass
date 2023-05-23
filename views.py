@@ -18,3 +18,7 @@ def information():
 @views.route("/times")
 def times():
     return render_template("times.html")
+
+@views.route("/login")
+def login():
+    return render_template("login.html")
