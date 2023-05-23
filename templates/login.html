@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename= 'style.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'account-style.css') }}" />
 
 </head>
 
@@ -22,18 +22,21 @@
       </nav>
 
     <!-- Login Input Boxes -->
-    <form>
-        Username <input type="text" name="userName"/>
+    <form class="login-form">
+        <p class="login-lable">Username </p>
+        <input type="text" name="userName" class="login-inputbox"/>
+        <p class="login-lable">Password </p>
+        <input type="password" name="password" class="login-inputbox"/>
+        <div>
+            <button class="login-button">
+                Login
+            </button>
+        </div>
+        
+        <div class="login-lable">
+            Dont have an account?
+            <a href="{{'/createAccount'}}"> Sign Up!</a>
+        </div>
     </form>
-    <form>
-        Password <input type="password" name="password"/>
-    </form>
-
-    <div>
-        <button class="login-button">
-            Login
-        </button>
-    </div>
-
 </body>
 </html>
