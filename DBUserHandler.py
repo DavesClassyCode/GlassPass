@@ -27,14 +27,14 @@ import sqlite3
 import unittest
 import re
 
-from passlib.hash import pbkdf2_sha256, argon2
+from passlib.hash import pbkdf2_sha256
 
 tableColumnDict = {'Users': '("UID" INTEGER NOT NULL UNIQUE, "FirstName" TEXT, "LastName" TEXT, "Username" TEXT, "Email" TEXT, "Password" TEXT, PRIMARY KEY ("UID" AUTOINCREMENT))'}
 tableInsertDict = {'Users': '("UID", "FirstName", "LastName", "Username", "Email", "Password") VALUES (?, ?, ?, ?, ?)'}
 
 class DBHandler():
 
-    def __init__(self,databasePath = None):
+    def __init__(self, databasePath = None):
         """
         Initializes the SQLite Database Connection, raises FileNotFoundError if the database is missing
         """
