@@ -29,7 +29,7 @@ def createAccount():
 
 
 
-@app.route('/register', methods=['POST'])
+@views.route('/register', methods=['POST'])
 def register():
     firstname = request.form['firstname']
     lastname = request.form['lastname']
