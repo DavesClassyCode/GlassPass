@@ -58,14 +58,19 @@ class DBHandler():
         self.dbCursor.execute(f'CREATE TABLE IF NOT EXISTS {tableName} {tableColumnDict[tableName]}')
         self.dbConnection.commit()
 
-    def insertNewUserData(self, args):
+    def insertNewUserData(self, FirstName, LastName, Username, Email, Password):
         """
-        Adds a single new user to the database
-        :param args: length 5 tuple (or data which can be converted to a list) in format of firstname, lastname, email, password
-        :return:
+        Adds new user to database
+        :param FirstName:
+        :param LastName:
+        :param Username:
+        :param Email:
+        :param Password:
+        :return: True if storage is successful, false if not
         """
         #TODO: sanitize input
-        FirstName, LastName, Username, Email, Password = tuple(args)
+        if FirstName is None or LastName is None or Username is None or Email is None or Password is None:
+            raise ValueError('Missing Data in new user storage')
         try:
             self.checkDuplicateUserInfo(Username, Email)
         except sqlite3.DataError:
@@ -158,10 +163,10 @@ class DBUserHandlerUnitTesting(unittest.TestCase):
         testDB = DBHandler('unittestDB.db')
         testDB.dbCursor.execute('DELETE FROM Users;')
         testDB.dbConnection.commit()
-        unittest.TestCase.assertTrue(self, expr=testDB.insertNewUserData(['testFirstName1', 'testLastName1', 'testUsername1', 'test1@mail.com', 'password1']), msg='Failed to add first user')
-        unittest.TestCase.assertTrue(self, expr=testDB.insertNewUserData(['testFirstName2', 'testLastName2', 'testUsername2', 'test2@mail.com', 'password2']), msg='Failed to add second user')
-        unittest.TestCase.assertTrue(self, expr=testDB.insertNewUserData(['testFirstName3', 'testLastName3', 'testUsername3', 'test3@mail.com', 'password2']), msg='Failed to add user with duplicate password')
-        unittest.TestCase.assertTrue(self, expr=testDB.insertNewUserData(['testFirstName3', 'testLastName3', 'testUsername4', 'test4@mail.com', 'password3']), msg='Failed to add user with duplicate names')
+        unittest.TestCase.assertTrue(self, expr=testDB.insertNewUserData('testFirstName1', 'testLastName1', 'testUsername1', 'test1@mail.com', 'password1'), msg='Failed to add first user')
+        unittest.TestCase.assertTrue(self, expr=testDB.insertNewUserData('testFirstName2', 'testLastName2', 'testUsername2', 'test2@mail.com', 'password2'), msg='Failed to add second user')
+        unittest.TestCase.assertTrue(self, expr=testDB.insertNewUserData('testFirstName3', 'testLastName3', 'testUsername3', 'test3@mail.com', 'password2'), msg='Failed to add user with duplicate password')
+        unittest.TestCase.assertTrue(self, expr=testDB.insertNewUserData('testFirstName3', 'testLastName3', 'testUsername4', 'test4@mail.com', 'password3'), msg='Failed to add user with duplicate names')
         testDB.dbCursor.execute('DELETE FROM Users;')
         testDB.dbConnection.commit()
 
@@ -169,9 +174,9 @@ class DBUserHandlerUnitTesting(unittest.TestCase):
         testDB = DBHandler('unittestDB.db')
         testDB.dbCursor.execute('DELETE FROM Users;')
         testDB.dbConnection.commit()
-        testDB.insertNewUserData(['testFirstName1', 'testLastName1', 'testUsername1', 'test1@mail.com', 'password1'])
-        unittest.TestCase.assertFalse(self, expr=testDB.insertNewUserData(['testFirstName1', 'testLastName1', 'testUsername1', 'test2@mail.com', 'password2']),msg='Did not add duplicate user firstname/lastname')
-        unittest.TestCase.assertFalse(self, expr=testDB.insertNewUserData(['testFirstName2', 'testLastName2', 'testUsername3', 'test1@mail.com', 'password3']),msg='Did not add duplicate user email')
+        testDB.insertNewUserData('testFirstName1', 'testLastName1', 'testUsername1', 'test1@mail.com', 'password1')
+        unittest.TestCase.assertFalse(self, expr=testDB.insertNewUserData('testFirstName1', 'testLastName1', 'testUsername1', 'test2@mail.com', 'password2'),msg='Did not add duplicate user firstname/lastname')
+        unittest.TestCase.assertFalse(self, expr=testDB.insertNewUserData('testFirstName2', 'testLastName2', 'testUsername3', 'test1@mail.com', 'password3'),msg='Did not add duplicate user email')
         testDB.dbCursor.execute('DELETE FROM Users;')
         testDB.dbConnection.commit()
 
@@ -179,7 +184,7 @@ class DBUserHandlerUnitTesting(unittest.TestCase):
         testDB = DBHandler('unittestDB.db')
         testDB.dbCursor.execute('DELETE FROM Users;')
         testDB.dbConnection.commit()
-        testDB.insertNewUserData(['testFirstName1', 'TestLastName1', 'testUsername1', 'test1@mail.com', 'password1'])
+        testDB.insertNewUserData('testFirstName1', 'TestLastName1', 'testUsername1', 'test1@mail.com', 'password1')
         unittest.TestCase.assertTrue(self, expr=testDB.attemptLogin('password1', Username='testUsername1'))
         unittest.TestCase.assertTrue(self, expr=testDB.attemptLogin('password1', Email='test1@mail.com'))
         testDB.dbCursor.execute('DELETE FROM Users;')
@@ -189,7 +194,7 @@ class DBUserHandlerUnitTesting(unittest.TestCase):
         testDB = DBHandler('unittestDB.db')
         testDB.dbCursor.execute('DELETE FROM Users;')
         testDB.dbConnection.commit()
-        testDB.insertNewUserData(['testFirstName1', 'TestLastName1', 'testUsername1', 'test1@mail.com', 'password1'])
+        testDB.insertNewUserData('testFirstName1', 'TestLastName1', 'testUsername1', 'test1@mail.com', 'password1')
         unittest.TestCase.assertFalse(self, expr=testDB.attemptLogin('password2', Username='testUsername1'))
         unittest.TestCase.assertFalse(self, expr=testDB.attemptLogin('password2', Email='test1@mail.com'))
         unittest.TestCase.assertFalse(self, expr=testDB.attemptLogin('password1', Username='testUsername2'))
