@@ -60,7 +60,7 @@ class DBHandler():
 
     def insertNewUserData(self, FirstName, LastName, Username, Email, Password):
         """
-        Adds new user to database
+        Adds new user to database.
         :param FirstName:
         :param LastName:
         :param Username:
@@ -185,8 +185,11 @@ class DBUserHandlerUnitTesting(unittest.TestCase):
         testDB.dbCursor.execute('DELETE FROM Users;')
         testDB.dbConnection.commit()
         testDB.insertNewUserData('testFirstName1', 'TestLastName1', 'testUsername1', 'test1@mail.com', 'password1')
+        testDB.insertNewUserData('testFirstName2', 'testLastName2', 'testUsername2', 'test2@mail.com', 'password2')
         unittest.TestCase.assertTrue(self, expr=testDB.attemptLogin('password1', Username='testUsername1'))
         unittest.TestCase.assertTrue(self, expr=testDB.attemptLogin('password1', Email='test1@mail.com'))
+        unittest.TestCase.assertTrue(self, expr=testDB.attemptLogin('password2', Username='testUsername2'))
+        unittest.TestCase.assertTrue(self, expr=testDB.attemptLogin('password2', Email='test2@mail.com'))
         testDB.dbCursor.execute('DELETE FROM Users;')
         testDB.dbConnection.commit()
 
@@ -195,6 +198,7 @@ class DBUserHandlerUnitTesting(unittest.TestCase):
         testDB.dbCursor.execute('DELETE FROM Users;')
         testDB.dbConnection.commit()
         testDB.insertNewUserData('testFirstName1', 'TestLastName1', 'testUsername1', 'test1@mail.com', 'password1')
+        testDB.insertNewUserData('testFirstName2', 'testLastName2', 'testUsername2', 'test2@mail.com', 'password2')
         unittest.TestCase.assertFalse(self, expr=testDB.attemptLogin('password2', Username='testUsername1'))
         unittest.TestCase.assertFalse(self, expr=testDB.attemptLogin('password2', Email='test1@mail.com'))
         unittest.TestCase.assertFalse(self, expr=testDB.attemptLogin('password1', Username='testUsername2'))
