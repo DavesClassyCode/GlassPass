@@ -28,6 +28,10 @@ nav li:last-child {
   width: 250px;
   border-radius: 5px;
   height: 175px;
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-top: 30px;
+  padding-bottom: 30px;
 }
 
 .login-button {
@@ -58,6 +62,7 @@ nav li:last-child {
     margin-top: 5px;
     color: rgb(80, 92, 196);
     text-align: center;
+    font-family: Arial;
 }
 
 .login-inputbox{
@@ -67,7 +72,7 @@ nav li:last-child {
     border-radius: 3px;
     display: inline-block;
     color-scheme: solid;
-    margin-left: 22px;
+    margin-left: 20px;
 }
 
 .account-signup-prompt{
