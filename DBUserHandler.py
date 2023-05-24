@@ -25,15 +25,16 @@ Do unit testing
 import os
 import sqlite3
 import unittest
+import re
 
 from passlib.hash import pbkdf2_sha256
 
-tableColumnDict = {'Users': '("UID" INTEGER NOT NULL UNIQUE, "FirstName" TEXT, "LastName" TEXT, "Email" TEXT, "Password" TEXT, PRIMARY KEY ("UID" AUTOINCREMENT))'}
-tableInsertDict = {'Users': '("UID", "FirstName", "LastName", "Email", "Password") VALUES (?, ?, ?, ?)'}
+tableColumnDict = {'Users': '("UID" INTEGER NOT NULL UNIQUE, "FirstName" TEXT, "LastName" TEXT, "Username" TEXT, "Email" TEXT, "Password" TEXT, PRIMARY KEY ("UID" AUTOINCREMENT))'}
+tableInsertDict = {'Users': '("UID", "FirstName", "LastName", "Username", "Email", "Password") VALUES (?, ?, ?, ?, ?)'}
 
 class DBHandler():
 
-    def __init__(self,databasePath = None):
+    def __init__(self, databasePath = None):
         """
         Initializes the SQLite Database Connection, raises FileNotFoundError if the database is missing
         """
@@ -57,129 +58,153 @@ class DBHandler():
         self.dbCursor.execute(f'CREATE TABLE IF NOT EXISTS {tableName} {tableColumnDict[tableName]}')
         self.dbConnection.commit()
 
-    def insertNewUserData(self, args):
+    def insertNewUserData(self, FirstName, LastName, Username, Email, Password):
         """
-        Adds a single new user to the database
-        :param args: length 4 tuple (or data which can be converted to a list) in format of firstname, lastname, email, password
-        :return:
+        Adds new user to database.
+        :param FirstName:
+        :param LastName:
+        :param Username:
+        :param Email:
+        :param Password:
+        :return: True if storage is successful, false if not
         """
-        FirstName, LastName, Email, Password = tuple(args)
+        #TODO: sanitize input
+        if FirstName is None or LastName is None or Username is None or Email is None or Password is None:
+            raise ValueError('Missing Data in new user storage')
         try:
-            self.checkDuplicateUserInfo(FirstName, LastName, Email)
-        except sqlite3.DataError as e:
-            print(e)
+            self.checkDuplicateUserInfo(Username, Email)
+        except sqlite3.DataError:
             return False
         passHash = self.hashPassword(str(Password))
-        statement = 'INSERT INTO Users (FirstName, LastName, Email, Password) VALUES (?, ?, ?, ?);'
-        arg = (str(FirstName), str(LastName), str(Email), passHash)
+        statement = 'INSERT INTO Users (FirstName, LastName,  Username, Email, Password) VALUES (?, ?, ?, ?, ?);'
+        arg = (str(FirstName), str(LastName), str(Username), str(Email), passHash)
         self.dbCursor.execute(statement, arg)
         self.dbConnection.commit()
         return True
 
-    def checkDuplicateUserInfo(self, FirstName, LastName, Email):
+    def checkDuplicateUserInfo(self, Username, Email):
         """
         Verify that the database does not have a matching first/last name pair as a new user
         and that a new email does not already exist in the database
-        :param FirstName:
-        :param LastName:
+        :param Username:
         :param Email:
         :return:
         """
-        statement = 'SELECT FirstName, LastName FROM Users WHERE FirstName=? AND LastName = ?;'
-        arg = (FirstName, LastName,)
+        statement = 'SELECT Username FROM Users WHERE Username=?;'
+        arg = (Username,)
         if len(self.dbCursor.execute(statement, arg).fetchall()) > 0:
-            raise sqlite3.DataError('Duplicate First and Last name pair')
+            raise sqlite3.DataError('Duplicate Username')
         statement = 'SELECT Email FROM Users WHERE Email=?;'
         arg = (Email,)
-        if self.dbCursor.execute(statement, arg).fetchone() is not None:
+        if len(self.dbCursor.execute(statement, arg).fetchall()) > 0:
             raise sqlite3.DataError('Duplicate Email found in table')
 
-    def retrievePassHash(self, UID=None, FirstName=None, LastName=None, Email=None):
+    def retrievePassHash(self, Username=None, Email=None):
         """
-        Retrieves hashed password from database, accepts UID, First and Last name, or email
-        :param UID:
-        :param FirstName:
-        :param LastName:
+        Retrieves hashed password from database, accepts Username or email
+        :param Username:
         :param Email:
         :return: password hash
         """
-        if UID is not None:
-            statement = 'SELECT Password FROM USERS WHERE UID=?;'
-            arg = (str(UID),)
-            return self.dbCursor.execute(statement, arg).fetchone()[0]
-        elif FirstName is not None and LastName is not None:
-            statement = 'SELECT Password FROM USERS WHERE FirstName=? AND LastName=?;'
-            arg = (str(FirstName), str(LastName),)
-            return self.dbCursor.execute(statement, arg).fetchone()[0]
+        if Username is not None:
+            statement = 'SELECT Password FROM USERS WHERE Username=?;'
+            arg = (str(Username),)
+            try:
+                return self.dbCursor.execute(statement, arg).fetchone()[0]
+            except TypeError:
+                raise ValueError('No matching username and password pair')
         elif Email is not None:
             statement = 'SELECT Password FROM Users WHERE Email=?;'
             arg = (str(Email),)
-            return self.dbCursor.execute(statement, arg).fetchone()[0]
+            try:
+                return self.dbCursor.execute(statement, arg).fetchone()[0]
+            except TypeError:
+                raise ValueError('No matching email and password pair')
         else:
-            raise ValueError("No arguments given")
+            raise ValueError('No input')
 
-    def hashPassword(self,rawPassword):
+    def hashPassword(self, rawPassword):
         """
         Use passlib to securely hash the user password
         :param rawPassword: string password value
         :return: hashed password
         """
+        #TODO: Sanitize input and check password integrity
         return pbkdf2_sha256.hash(str(rawPassword))
 
-    def verifyPassword(self,rawPassword,UID=None,FirstName=None,LastName=None,Email=None):
+    def verifyPassword(self, rawPassword, Username=None, Email=None):
         """
         return true/false depending on whether the provided raw password matches the password hash retrieved from
         the database
 
-        accepts UID, FirstName and LastName, or Email
+        accepts Username or Email
         :param rawPassword: user password entered in HTML login form
-        :param UID:
-        :param FirstName:
-        :param LastName:
+        :param Username:
         :param Email:
         :return: True or False depending on password match
         """
-        return pbkdf2_sha256.verfy(str(rawPassword), self.retrievePassHash(UID, FirstName, LastName, Email))
+        try:
+            return pbkdf2_sha256.verify(str(rawPassword), self.retrievePassHash(Username, Email))
+        except ValueError:
+            return False
 
-    def attemptLogin(self, emailArg, passwordArg):
+    def attemptLogin(self, passwordArg, Email=None, Username=None):
         """
         Verifies that user email exists then attempts password verification
         :param emailArg:
         :param passwordArg:
         :return: False if email and password match is not found, True if a match is found
         """
-        statement = "SELECT Email FROM Users WHERE Email=?;"
-        arg = (str(emailArg),)
-        if self.dbCursor.execute(statement,arg).fetchone()[0] is None:
-            return False
-        return self.verifyPassword(passwordArg, Email=emailArg)
+        #TODO: sanitize input
+        return self.verifyPassword(passwordArg, Email=Email, Username=Username)
 
 class DBUserHandlerUnitTesting(unittest.TestCase):
     def testBasicNewUserInsert(self):
         testDB = DBHandler('unittestDB.db')
         testDB.dbCursor.execute('DELETE FROM Users;')
         testDB.dbConnection.commit()
-        unittest.TestCase.assertTrue(self, expr=testDB.insertNewUserData(['testFirstName1', 'testLastName1', 'test1@mail.com', 'password1']), msg='Failed to add first user')
-        unittest.TestCase.assertTrue(self, expr=testDB.insertNewUserData(['testFirstName2', 'testLastName2', 'test2@mail.com', 'password2']), msg='Failed to add second user')
-        unittest.TestCase.assertTrue(self, expr=testDB.insertNewUserData(['testFirstName3', 'testLastName3', 'test3@mail.com', 'password2']), msg='Failed to add user with duplicate password')
-        unittest.TestCase.assertTrue(self, expr=testDB.insertNewUserData(['testFirstName2', 'testLastName3', 'test4@mail.com', 'password3']), msg='Failed to add user with mismatched repeat names')
+        unittest.TestCase.assertTrue(self, expr=testDB.insertNewUserData('testFirstName1', 'testLastName1', 'testUsername1', 'test1@mail.com', 'password1'), msg='Failed to add first user')
+        unittest.TestCase.assertTrue(self, expr=testDB.insertNewUserData('testFirstName2', 'testLastName2', 'testUsername2', 'test2@mail.com', 'password2'), msg='Failed to add second user')
+        unittest.TestCase.assertTrue(self, expr=testDB.insertNewUserData('testFirstName3', 'testLastName3', 'testUsername3', 'test3@mail.com', 'password2'), msg='Failed to add user with duplicate password')
+        unittest.TestCase.assertTrue(self, expr=testDB.insertNewUserData('testFirstName3', 'testLastName3', 'testUsername4', 'test4@mail.com', 'password3'), msg='Failed to add user with duplicate names')
         testDB.dbCursor.execute('DELETE FROM Users;')
         testDB.dbConnection.commit()
 
     def testDuplicateUserInsert(self):
         testDB = DBHandler('unittestDB.db')
         testDB.dbCursor.execute('DELETE FROM Users;')
-        testDB.insertNewUserData(['testFirstName1', 'testLastName1', 'test1@mail.com', 'password1'])
-        unittest.TestCase.assertFalse(self, expr=testDB.insertNewUserData(['testFirstName1', 'testLastName1', 'test2@mail.com', 'password2']),msg='Did not add duplicate user firstname/lastname')
-        unittest.TestCase.assertFalse(self, expr=testDB.insertNewUserData(['testFirstName2', 'testLastName2', 'test1@mail.com', 'password3']),msg='Did not add duplicate user email')
+        testDB.dbConnection.commit()
+        testDB.insertNewUserData('testFirstName1', 'testLastName1', 'testUsername1', 'test1@mail.com', 'password1')
+        unittest.TestCase.assertFalse(self, expr=testDB.insertNewUserData('testFirstName1', 'testLastName1', 'testUsername1', 'test2@mail.com', 'password2'),msg='Did not add duplicate user firstname/lastname')
+        unittest.TestCase.assertFalse(self, expr=testDB.insertNewUserData('testFirstName2', 'testLastName2', 'testUsername3', 'test1@mail.com', 'password3'),msg='Did not add duplicate user email')
         testDB.dbCursor.execute('DELETE FROM Users;')
         testDB.dbConnection.commit()
 
     def testGoodLogin(self):
-        pass
+        testDB = DBHandler('unittestDB.db')
+        testDB.dbCursor.execute('DELETE FROM Users;')
+        testDB.dbConnection.commit()
+        testDB.insertNewUserData('testFirstName1', 'TestLastName1', 'testUsername1', 'test1@mail.com', 'password1')
+        testDB.insertNewUserData('testFirstName2', 'testLastName2', 'testUsername2', 'test2@mail.com', 'password2')
+        unittest.TestCase.assertTrue(self, expr=testDB.attemptLogin('password1', Username='testUsername1'))
+        unittest.TestCase.assertTrue(self, expr=testDB.attemptLogin('password1', Email='test1@mail.com'))
+        unittest.TestCase.assertTrue(self, expr=testDB.attemptLogin('password2', Username='testUsername2'))
+        unittest.TestCase.assertTrue(self, expr=testDB.attemptLogin('password2', Email='test2@mail.com'))
+        testDB.dbCursor.execute('DELETE FROM Users;')
+        testDB.dbConnection.commit()
 
     def testBadLogin(self):
-        pass
+        testDB = DBHandler('unittestDB.db')
+        testDB.dbCursor.execute('DELETE FROM Users;')
+        testDB.dbConnection.commit()
+        testDB.insertNewUserData('testFirstName1', 'TestLastName1', 'testUsername1', 'test1@mail.com', 'password1')
+        testDB.insertNewUserData('testFirstName2', 'testLastName2', 'testUsername2', 'test2@mail.com', 'password2')
+        unittest.TestCase.assertFalse(self, expr=testDB.attemptLogin('password2', Username='testUsername1'))
+        unittest.TestCase.assertFalse(self, expr=testDB.attemptLogin('password2', Email='test1@mail.com'))
+        unittest.TestCase.assertFalse(self, expr=testDB.attemptLogin('password1', Username='testUsername2'))
+        unittest.TestCase.assertFalse(self, expr=testDB.attemptLogin('password1', Email='test2@mail.com'))
+        testDB.dbCursor.execute('DELETE FROM Users;')
+        testDB.dbConnection.commit()
 
 if __name__ == '__main__':
     #Only for unit testing database connector
