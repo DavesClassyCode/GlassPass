@@ -4,7 +4,7 @@ Database interaction tool
 Created by Dillon M
 Created 5/20/2023
 Last Edited by Dillon M
-Last Modified  5/22/2023
+Last Modified  5/24/2023
 Created for CSI2999 Polyrhythm Skate semester project
 
 Relevant online documentation:
@@ -17,24 +17,22 @@ Change Log:
 5/22/2023: Modified exception classes to avoid using general "Exception" class
 Work on preliminary unit testing
 
+5/24/2023: Added input sanitization and misc improvements for good coding practices
+
 Future Task List:
-Create function to add dummy user data
-Do unit testing
+Do unit testing for input sanitization
 """
 
-import os
-import sqlite3
-import unittest
-import re
-
+import os, sqlite3, unittest, re
 from passlib.hash import pbkdf2_sha256
 
 tableColumnDict = {'Users': '("UID" INTEGER NOT NULL UNIQUE, "FirstName" TEXT, "LastName" TEXT, "Username" TEXT, "Email" TEXT, "Password" TEXT, PRIMARY KEY ("UID" AUTOINCREMENT))'}
 tableInsertDict = {'Users': '("UID", "FirstName", "LastName", "Username", "Email", "Password") VALUES (?, ?, ?, ?, ?)'}
 
+
 class DBHandler():
 
-    def __init__(self, databasePath = None):
+    def __init__(self, databasePath=None):
         """
         Initializes the SQLite Database Connection, raises FileNotFoundError if the database is missing
         """
@@ -46,10 +44,10 @@ class DBHandler():
         self.dbConnection = sqlite3.connect(self.dbPath)
         self.dbCursor = self.dbConnection.cursor()
 
-        #make sure the table exists before trying to do work later
+        # make sure the table exists before trying to do work later
         self.createTable('Users')
 
-    def createTable(self,tableName):
+    def createTable(self, tableName):
         """
         Verify that table exists before doing further SQL work, mainly for initialization purposes
         :param tableName:
@@ -68,9 +66,13 @@ class DBHandler():
         :param Password:
         :return: True if storage is successful, false if not
         """
-        #TODO: sanitize input
         if FirstName is None or LastName is None or Username is None or Email is None or Password is None:
             raise ValueError('Missing Data in new user storage')
+        if self.sanitze(FirstName, 'Name') is None or self.sanitze(LastName, 'Name') is None or self.sanitze(Username, 'Name') is None or self.sanitze(
+                Email, 'Email') is None:
+            raise ValueError('Unsanitary input')
+        if self.checkPasswordIntegrity(Password) is None:
+            raise ValueError('Password is not strong enough')
         try:
             self.checkDuplicateUserInfo(Username, Email)
         except sqlite3.DataError:
@@ -129,7 +131,6 @@ class DBHandler():
         :param rawPassword: string password value
         :return: hashed password
         """
-        #TODO: Sanitize input and check password integrity
         return pbkdf2_sha256.hash(str(rawPassword))
 
     def verifyPassword(self, rawPassword, Username=None, Email=None):
@@ -155,8 +156,20 @@ class DBHandler():
         :param passwordArg:
         :return: False if email and password match is not found, True if a match is found
         """
-        #TODO: sanitize input
         return self.verifyPassword(passwordArg, Email=Email, Username=Username)
+
+    def sanitze(self, arg, typeflag=None):
+        if typeflag == 'Name':
+            regexStr = '^[A-Za-z]+(((\'|\-|\.)?([A-Za-z])+))?$'
+        if typeflag == 'Email':
+            regexStr = '/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/'
+        return re.match(regexStr, arg)
+
+    def checkPasswordIntegrity(self, pwd):
+        minLen = 6
+        maxLen = 20
+        regexStr = '^(?=\S{' + str(minLen) + ',' + str(maxLen) + '}$)(?=.*?\d)(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[^A-Za-z\s0-9])'
+        return re.match(regexStr, pwd)
 
 class DBUserHandlerUnitTesting(unittest.TestCase):
     def testBasicNewUserInsert(self):
@@ -175,8 +188,8 @@ class DBUserHandlerUnitTesting(unittest.TestCase):
         testDB.dbCursor.execute('DELETE FROM Users;')
         testDB.dbConnection.commit()
         testDB.insertNewUserData('testFirstName1', 'testLastName1', 'testUsername1', 'test1@mail.com', 'password1')
-        unittest.TestCase.assertFalse(self, expr=testDB.insertNewUserData('testFirstName1', 'testLastName1', 'testUsername1', 'test2@mail.com', 'password2'),msg='Did not add duplicate user firstname/lastname')
-        unittest.TestCase.assertFalse(self, expr=testDB.insertNewUserData('testFirstName2', 'testLastName2', 'testUsername3', 'test1@mail.com', 'password3'),msg='Did not add duplicate user email')
+        unittest.TestCase.assertFalse(self, expr=testDB.insertNewUserData('testFirstName1', 'testLastName1', 'testUsername1', 'test2@mail.com', 'password2'), msg='Did not add duplicate user firstname/lastname')
+        unittest.TestCase.assertFalse(self, expr=testDB.insertNewUserData('testFirstName2', 'testLastName2', 'testUsername3', 'test1@mail.com', 'password3'), msg='Did not add duplicate user email')
         testDB.dbCursor.execute('DELETE FROM Users;')
         testDB.dbConnection.commit()
 
@@ -206,6 +219,9 @@ class DBUserHandlerUnitTesting(unittest.TestCase):
         testDB.dbCursor.execute('DELETE FROM Users;')
         testDB.dbConnection.commit()
 
+    def testUnsanitaryInput(self):
+        pass
+
 if __name__ == '__main__':
-    #Only for unit testing database connector
+    # Only for unit testing database connector
     unittest.main()
