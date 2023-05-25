@@ -30,11 +30,15 @@ def createAccount():
 
 
 @views.route('/register', methods=['POST'])
-def register():
+def register():  
     firstname = request.form['firstname']
     lastname = request.form['lastname']
     username = request.form['username']
     password = request.form['password']
-    email = request.form['email']
+    email = request.form['email']  
+    from DBUserHandler import DBHandler
+    db = DBHandler('SkateDB.db') 
+    db.insertNewUserData(firstname, lastname, username, email, password)
+    return home()
     #getting strings from the create account form
     #TODO enter information into the user table within DB
