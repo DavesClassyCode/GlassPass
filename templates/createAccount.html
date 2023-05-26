@@ -1,37 +1,50 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <title>Polyrythm Skate</title>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename= 'style.css') }}" />
+  <title>Polyrythm Skate</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{ url_for('static', filename= 'account-style.css') }}" />
 
 </head>
 
 <body>
+  <nav>
+    <ul>
+      <li><a href="{{'/'}}">Home</a></li>
+      <li><a href="{{'/pricing'}}">Pricing</a></li>
+      <li><a href="{{'/times'}}">Available Times</a></li>
+      <li><a href="{{'/information'}}">Information</a></li>
+      <li><a href="{{'/login'}}">Login</a></li>
+      <li><a href="{{'/createAccount'}}">Create Account</a></li>
+    </ul>
+  </nav>
   <div>
-    <h2>Create Account</h2>
-    <form action="/register" method="POST">
-      <label for="firstname">First Name:</label>
-      <input type="text" id="firstname" name="firstname" required>
-      
-      <label for="lastname">Last Name:</label>
-      <input type="text" id="lastname" name="lastname" required>
-      
-      <label for="username">Username:</label>
-      <input type="text" id="username" name="username" required>
-      
-      <label for="password">Password:</label>
-      <input type="password" id="password" name="password" required>
-      
-      <label for="email">e-mail:</label>
-      <input type="email" id="email" name="email" required>
-      <br>
-      <br>
+    <form class="creation-form" action="/register" method="POST">
+
+      <label class="login-lable" for="firstname">First Name:</label>
+      <input class="login-inputbox" type="text" id="firstname" name="firstname" required>
+
+      <label class="login-lable" for="lastname">Last Name:</label>
+      <input class="login-inputbox" type="text" id="lastname" name="lastname" required>
+
+      <label class="login-lable" for="username">Username:</label>
+      <input class="login-inputbox" type="text" id="username" name="username" required>
+
+      <label class="login-lable" for="password">Password:</label>
+      <input class="login-inputbox" type="password" id="password" name="password" required>
+
+      <label class="login-lable" for="email">e-mail:</label>
+      <input class="login-inputbox" type="email" id="email" name="email" required>
+ 
       <input class="login-button" type="submit" value="Create Account">
+
+      <div class="login-lable">
+        Already have an account?
+        <a href="{{'/login'}}"> Login!</a>
+      </div>
     </form>
   </div>
 </body>

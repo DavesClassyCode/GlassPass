@@ -40,5 +40,17 @@ def register():
     db = DBHandler('SkateDB.db') 
     db.insertNewUserData(firstname, lastname, username, email, password)
     return home()
-    #getting strings from the create account form
-    #TODO enter information into the user table within DB
+
+
+
+"""
+TODO Finish -- rough draft of method, just getting an idea of how method may work. need post within login.html form 
+@views.route('/login', methods=['POST'])
+def login():  
+    username = request.form['username']
+    password = request.form['password']
+    from DBUserHandler import DBHandler
+    db = DBHandler('SkateDB.db') 
+    db.attemptLogin(password, "", username)
+    return home()
+"""
