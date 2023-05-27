@@ -1,3 +1,8 @@
+:root{
+  --formtopmargin: 50px
+}
+
+
 nav ul {
   list-style-type: none;
   margin: 0;
@@ -27,8 +32,16 @@ body{
   width: 100%;
 }
 
+.form-wrapper{
+  display: flex;
+  width: 100%;
+  align-items: center;
+  align-items: baseline;
+  justify-content: space-evenly;
+}
 
 .login-form{
+  margin-top: var(--formtopmargin);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -92,6 +105,7 @@ body{
 }
 
 .creation-form{
+  margin-top: var(--formtopmargin);
   display: flex;
   flex-direction: column;
   justify-content: center;
