@@ -22,16 +22,16 @@ def times():
 
 @views.route("/login", methods=['POST','GET'])
 def login():
-    print("Login Ran")
     if request.method=='POST':
         username = request.form['username']
         password = request.form['password']
-        print(f"Username: {username}, Password: {password}")
         from DBUserHandler import DBHandler
         db = DBHandler('SkateDB.db')
         if not db.attemptLogin(password, "", username):
+            print("Unsuccessful Login attempt")
             return render_template("login.html")
         else:
+            print("Login Success!")
             return render_template("times.html")
     else: 
         request.method=='GET'
