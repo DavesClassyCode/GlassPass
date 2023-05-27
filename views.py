@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, request
+import sqlite3
 
 views = Blueprint(__name__, "views")
 
@@ -19,9 +20,23 @@ def information():
 def times():
     return render_template("times.html")
 
-@views.route("/login")
+@views.route("/login", methods=['POST','GET'])
 def login():
-    return render_template("login.html")
+    print("Login Ran")
+    if request.method=='POST':
+        username = request.form['username']
+        password = request.form['password']
+        print(f"Username: {username}, Password: {password}")
+        from DBUserHandler import DBHandler
+        db = DBHandler('SkateDB.db')
+        if not db.attemptLogin(password, "", username):
+            return render_template("login.html")
+        else:
+            return render_template("times.html")
+    else: 
+        request.method=='GET'
+        print("GET: render login.html")
+        return render_template("login.html")
 
 @views.route("/createAccount")
 def createAccount():

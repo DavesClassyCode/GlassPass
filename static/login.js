@@ -1,5 +1,5 @@
 function verifyUsername() {  
-   var userName = document.getElementById("userName").value;
+   var userName = document.getElementById("username").value;
    //check empty userName field  
    if(userName == "") {  
       document.getElementById("login-error-message").innerHTML = "Fill the username please!";  
