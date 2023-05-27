@@ -39,6 +39,7 @@
       </header>
 
     <!-- Login Input Boxes -->
+    <div class="form-wrapper">
     <form class="login-form" onsubmit="validateLogin(); return false;">
         <?xml version="1.0" encoding="UTF-8" standalone="no"?>
             <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
@@ -72,6 +73,7 @@
             <a href="{{'/createAccount'}}"> Sign Up!</a>
         </div>
     </form>
+    </div>
     <script type="text/javascript" src="{{url_for('static', filename='login.js')}}"></script>
 </body>
 </html>
