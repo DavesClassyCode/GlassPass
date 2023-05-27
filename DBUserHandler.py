@@ -69,8 +69,6 @@ class DBHandler():
         :param Password:
         :return: True if storage is successful, false if not
         """
-        # if FirstName is None or LastName is None or Username is None or Email is None or Password is None:
-        #     raise ValueError('Missing Data in new user storage')
         if self.sanitze(FirstName, 'Name') is None or self.sanitze(LastName, 'Name') is None or self.sanitze(Username, 'Name') is None or self.sanitze(
                 Email, 'Email') is None:
             raise UnsanitaryInputException('Unsanitary input')
