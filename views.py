@@ -106,15 +106,3 @@ def createAccount():
 #     return render_template("createAccount.html")
 
 
-
-"""
-TODO Finish -- rough draft of method, just getting an idea of how method may work. need post within login.html form 
-@views.route('/login', methods=['POST'])
-def login():  
-    username = request.form['username']
-    password = request.form['password']
-    from DBUserHandler import DBHandler
-    db = DBHandler('SkateDB.db') 
-    db.attemptLogin(password, "", username)
-    return home()
-"""

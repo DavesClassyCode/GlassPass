@@ -2,41 +2,72 @@
 <html lang="en">
 
 <head>
-	<title>Glass Pass</title>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="{{ url_for('static', filename= 'style.css') }}"/>
+  <title>Glass Pass</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{ url_for('static', filename= 'information-style.css') }}">
+  <style>
+
+  </style>
 </head>
 
 <body>
   <header>
-      
-    <!-- Logo -->
-    <p style="text-align:center"><a href="https://ibb.co/JzGFpRf"><img src="https://i.ibb.co/9q1349F/Glass-Pass-1-1.png" style="height:236px; width:400px" alt="Glass-Pass-1-1" border="0"></a></p>
-    
-    <table border="1" cellpadding="1" cellspacing="1" style="width:1280px;margin-left:auto;margin-right:auto;">
-      <tbody>
-        <tr>
-          <nav>
-            <td style="text-align: center;"> <p> <a href="{{'/'}}">Home</a> </p>
+    <a href="https://ibb.co/JzGFpRf">
+      <img src="https://i.ibb.co/9q1349F/Glass-Pass-1-1.png" alt="Glass Pass Logo" width="400px" height="236px">
+    </a>
+    <div class="container">
+
+      <table border="1" cellpadding="1" cellspacing="1">
+        <tbody>
+          <tr>
+            <nav>
+              <td>
+                <p> <a href="{{'/'}}">Home</a> </p>
               </td>
-              <td style="text-align: center;"> <p><a href="{{'/pricing'}}">Pricing</a></p>
+              <td>
+                <p><a href="{{'/pricing'}}">Pricing</a></p>
               </td>
-              <td style="text-align: center;"> <p><a href="{{'/times'}}">Available Times</a></p>
+              <td>
+                <p><a href="{{'/times'}}">Available Times</a></p>
               </td>
-              <td style="text-align: center;"> <p><a href="{{'/information'}}">Information</a></p>
+              <td>
+                <p><a href="{{'/information'}}">Information</a></p>
               </td>
-              <td style="text-align: center;"> <p><a href="{{'/login'}}">Login</a></p>
+              <td>
+                <p><a href="{{'/login'}}">Login</a></p>
               </td>
-              <td style="text-align: center;"> <p><a href="{{'/createAccount'}}">Create Account</a></p>
+              <td>
+                <p><a href="{{'/createAccount'}}">Create Account</a></p>
               </td>
-          </nav>
-        </tr>
-      
-      </tbody>
-    </table>
+            </nav>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
   </header>
-  
+
+  <div class="container">
+    <h1>Contact Information</h1>
+    <div class="contact-info">
+      <div>
+        <h3>Email</h3>
+        <a href="mailto:detroiticeskatingclub@gmail.com">detroiticeskatingclub@gmail.com</a>
+      </div>
+      <div>
+        <h3>Phone</h3>
+        <span>(999)-999-9999</span>
+      </div>
+    </div>
+
+    <p class="information">Glass Pass is an innovative and user-friendly booking and payment application designed to make reserving ice rinks a seamless and hassle-free process.
+       With Glass Pass, ice skating enthusiasts can easily browse through the available ice rinks in their area, choose the one that suits their needs, 
+       and complete their booking in just a few clicks. The platform is designed to simplify the entire booking process, 
+       from selecting the preferred date and time to making a secure payment, all in one easy-to-use platform. With its intuitive design and 
+       powerful features, Glass Pass is the ideal solution for anyone looking for a convenient and efficient way to book and pay for ice rinks.</p>
+  </div>
 </body>
+
 </html>
