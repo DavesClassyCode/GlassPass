@@ -12,13 +12,3 @@
   nav li:last-child {
     margin-right: 0;
   }
-
-  .login-button {
-    background-color: rgb(12, 144, 196);
-    color: white;
-    border: none;
-    height: 25px;
-    width: 150;
-    border-radius: 3px;
-    cursor: pointer;
-}
