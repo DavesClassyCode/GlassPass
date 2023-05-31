@@ -9,34 +9,29 @@
     <link rel="stylesheet" href="{{ url_for('static', filename= 'account-style.css') }}" />
 
 </head>
-<body>
-    <header>
-      
-  <!-- Logo -->
-  <p style="text-align:center"><a href="https://ibb.co/JzGFpRf"><img src="https://i.ibb.co/9q1349F/Glass-Pass-1-1.png" style="height:236px; width:400px" alt="Glass-Pass-1-1" border="0"></a></p>
+<header>
+    <nav>
+    <!-- Logo -->
+        <ul>
+        <a href="{{'/'}}"><img class="header-icon" src="https://i.ibb.co/9q1349F/Glass-Pass-1-1.png"  alt="Glass-Pass-1-1" border="0"></a>
+
         
-        <table border="1" cellpadding="1" cellspacing="1" style="width:1280px;margin-left:auto;margin-right:auto;">
-          <tbody>
-            <tr>
-              <nav>
-                <td style="text-align: center;"> <p> <a href="{{'/'}}">Home</a> </p>
-                  </td>
-                  <td style="text-align: center;"> <p><a href="{{'/pricing'}}">Pricing</a></p>
-                  </td>
-                  <td style="text-align: center;"> <p><a href="{{'/times'}}">Available Times</a></p>
-                  </td>
-                  <td style="text-align: center;"> <p><a href="{{'/information'}}">Information</a></p>
-                  </td>
-                  <td style="text-align: center;"> <p><a href="{{'/login'}}">Login</a></p>
-                  </td>
-                  <td style="text-align: center;"> <p><a href="{{'/createAccount'}}">Create Account</a></p>
-                  </td>
-              </nav>
-            </tr>
-          
-          </tbody>
-        </table>
-      </header>
+        <!-- <li><a href="{{'/'}}">Home</a></li> -->
+
+        <li><a href="{{'/pricing'}}">Pricing</a></li>
+
+        <li><a href="{{'/times'}}">Available Times</a></li>
+
+        <li><a href="{{'/information'}}">Information</a></li>
+
+        <li><a href="{{'/login'}}">Login</a></li>
+
+        <li><a href="{{'/createAccount'}}">Create Account</a></li>
+        </ul>
+    </nav>      
+</header>
+<body>
+    
 
     <!-- Login Input Boxes -->
     <div class="form-wrapper">
@@ -74,6 +69,6 @@
         </div>
     </form>
     </div>
-    <script type="text/javascript" src="{{url_for('static', filename='login.js')}}"></script>
+    <!-- <script type="text/javascript" src="{{url_for('static', filename='login.js')}}"></script> -->
 </body>
 </html>
