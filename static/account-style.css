@@ -37,11 +37,11 @@ header{
 
 ul{
   display: flex;
-  width: 100%;
+  max-width: 600px;
   justify-content: flex-end;
   align-items: center;
   box-sizing: border-box;
-  padding-bottom: 20px;  
+  padding: 20px;  
 
 }
 
@@ -49,6 +49,12 @@ ul li {
   list-style: none;
   margin: 10px;
   font-weight: bold;
+}
+
+.header-wrapper{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .header-icon{
