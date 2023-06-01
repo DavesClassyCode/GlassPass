@@ -161,4 +161,17 @@ body{
   box-shadow: 2px 2px 10px rgb(96, 94, 114);
 }
     
+/* flexbox container */
+.row {
+  display: -webkit-flex;
+  display: flex;
+}
+
+/* 3 columns for flexbox */
+.column {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  padding: 10px;
+}
 
