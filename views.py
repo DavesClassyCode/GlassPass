@@ -28,7 +28,8 @@ def login():
         username = request.form['userName']
         password = request.form['password']
         try:
-            db = DBHandler('SkateDB.db')
+            # db = DBHandler('SkateDB.db')
+            db = DBHandler()
             if db.attemptLogin(password, Username=username):
                 print('successful login')
                 return render_template('times.html')
@@ -64,7 +65,8 @@ def createAccount():
         password = request.form['password']
         email = request.form['email']
         try:
-            db = DBHandler('SkateDB.db')
+            # db = DBHandler('SkateDB.db')
+            db = DBHandler()
             if db.insertNewUserData(firstname, lastname, username, email, password):
                 return render_template("times.html")
         except FileNotFoundError as e:
