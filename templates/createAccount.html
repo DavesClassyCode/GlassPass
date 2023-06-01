@@ -9,35 +9,32 @@
   <link rel="stylesheet" href="{{ url_for('static', filename= 'account-style.css') }}" />
 
 </head>
+<header>
+  <nav>
+  <!-- Logo --><div class="header-wrapper">
+  
+   <a href="{{'/'}}"><img class="header-icon" src="https://i.ibb.co/9q1349F/Glass-Pass-1-1.png"  alt="Glass-Pass-1-1" border="0"></a>
+
+      <ul>
+
+      
+      <!-- <li><a href="{{'/'}}">Home</a></li> -->
+
+      <li><a href="{{'/pricing'}}">Pricing</a></li>
+
+      <li><a href="{{'/times'}}">Available Times</a></li>
+
+      <li><a href="{{'/information'}}">Information</a></li>
+
+      <li><a href="{{'/login'}}">Login</a></li>
+
+      <li><a href="{{'/createAccount'}}">Create Account</a></li>
+      </ul>
+  </div>
+  </nav>      
+</header>
 
 <body>
-  <header>
-      
-   <!-- Logo -->
-   <p style="text-align:center"><a href="https://ibb.co/JzGFpRf"><img src="https://i.ibb.co/9q1349F/Glass-Pass-1-1.png" style="height:236px; width:400px" alt="Glass-Pass-1-1" border="0"></a></p>
-    
-    <table border="1" cellpadding="1" cellspacing="1" style="width:1280px;margin-left:auto;margin-right:auto;">
-      <tbody>
-        <tr>
-          <nav>
-            <td style="text-align: center;"> <p> <a href="{{'/'}}">Home</a> </p>
-              </td>
-              <td style="text-align: center;"> <p><a href="{{'/pricing'}}">Pricing</a></p>
-              </td>
-              <td style="text-align: center;"> <p><a href="{{'/times'}}">Available Times</a></p>
-              </td>
-              <td style="text-align: center;"> <p><a href="{{'/information'}}">Information</a></p>
-              </td>
-              <td style="text-align: center;"> <p><a href="{{'/login'}}">Login</a></p>
-              </td>
-              <td style="text-align: center;"> <p><a href="{{'/createAccount'}}">Create Account</a></p>
-              </td>
-          </nav>
-        </tr>
-      
-      </tbody>
-    </table>
-  </header>
 
   <div class="form-wrapper">
     <form class="creation-form" action="/createAccount" method="POST">

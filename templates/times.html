@@ -8,36 +8,33 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="{{ url_for('static', filename= 'style.css') }}"/>
 </head>
+<header>
+  <nav>
+  <!-- Logo --><div class="header-wrapper">
+  
+   <a href="{{'/'}}"><img class="header-icon" src="https://i.ibb.co/9q1349F/Glass-Pass-1-1.png"  alt="Glass-Pass-1-1" border="0"></a>
+
+      <ul>
+
+      
+      <!-- <li><a href="{{'/'}}">Home</a></li> -->
+
+      <li><a href="{{'/pricing'}}">Pricing</a></li>
+
+      <li><a href="{{'/times'}}">Available Times</a></li>
+
+      <li><a href="{{'/information'}}">Information</a></li>
+
+      <li><a href="{{'/login'}}">Login</a></li>
+
+      <li><a href="{{'/createAccount'}}">Create Account</a></li>
+      </ul>
+  </div>
+  </nav>      
+</header>
 
 <body>
-  <header>
-      
-   <!-- Logo -->
-   <p style="text-align:center"><a href="https://ibb.co/JzGFpRf"><img src="https://i.ibb.co/9q1349F/Glass-Pass-1-1.png" style="height:236px; width:400px" alt="Glass-Pass-1-1" border="0"></a></p>
-    
-    <table border="1" cellpadding="1" cellspacing="1" style="width:1280px;margin-left:auto;margin-right:auto;">
-      <tbody>
-        <tr>
-          <nav>
-            <td style="text-align: center;"> <p> <a href="{{'/'}}">Home</a> </p>
-              </td>
-              <td style="text-align: center;"> <p><a href="{{'/pricing'}}">Pricing</a></p>
-              </td>
-              <td style="text-align: center;"> <p><a href="{{'/times'}}">Available Times</a></p>
-              </td>
-              <td style="text-align: center;"> <p><a href="{{'/information'}}">Information</a></p>
-              </td>
-              <td style="text-align: center;"> <p><a href="{{'/login'}}">Login</a></p>
-              </td>
-              <td style="text-align: center;"> <p><a href="{{'/createAccount'}}">Create Account</a></p>
-              </td>
-          </nav>
-        </tr>
-      
-      </tbody>
-    </table>
-  </header>
-  
+ 
   <p style="text-align:center"><iframe frameborder="0" height="600" scrolling="no" src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=1&amp;bgcolor=%23ffffff&amp;ctz=America%2FDetroit&amp;src=YWRkcmVzc2Jvb2sjY29udGFjdHNAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&amp;src=ZW4udXNhI2hvbGlkYXlAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&amp;color=%2333B679&amp;color=%230B8043" style="border:solid 1px #777" width="800"></iframe></p>
   
 </body>
