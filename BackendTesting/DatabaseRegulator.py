@@ -1,3 +1,26 @@
+"""
+FYI when this is run, it will wipe out everything in the users table of the SkateDB.db database unless
+the dbPath variable is changed
+
+Database cleaning tool
+
+Created by Dillon M
+Created 6/1/2023
+Last Edited by Dillon M
+Last Modified  6/1/2023
+Created for CSI2999 Polyrhythm Skate semester project to regulate the data present in the
+SkateDB.db database to remove clutter from the database and to establish known testing data
+
+Relevant online documentation:
+N/A
+
+Change Log:
+6/1/2023 Initial Version
+
+Future Task List:
+Make more values in logins.csv to populate the table
+"""
+
 import sqlite3, pandas, os
 from DBUserHandler import DBHandler
 
