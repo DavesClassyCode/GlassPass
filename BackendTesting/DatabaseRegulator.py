@@ -1,26 +1,25 @@
-import sqlite3, pandas
+import sqlite3, pandas, os
 from DBUserHandler import DBHandler
 
 def eraseUserData(cursor):
     cursor.execute('DELETE FROM Users;')
 
-def addDummyData(cursor):
+def addDummyData(cursor,dbPath):
     data = pandas.read_csv('logins.csv',header=None)
-    dbFiller = DBHandler()
+    dbFiller = DBHandler(dbPath)
     for val in data.values:
-        try:
-            dbFiller.insertNewUserData(val[0], val[1], val[2], val[3], val[4])
-        except Exception as e:
-            print(e)
+        print(val)
+        dbFiller.insertNewUserData(val[0], val[1], val[2], val[3], val[4])
 
 if __name__ == '__main__':
     print('start')
-    import os
-    print(os.listdir())
-    dbPath = 'unittestDB.db'
-    print(os.path.isfile(dbPath))
+    # dbPath = 'unittestDB.db'
+    os.chdir('..')
+    dbPath = 'SkateDB.db'
     connection = sqlite3.connect(dbPath)
     cursor = connection.cursor()
     eraseUserData(cursor)
-    addDummyData(cursor)
+    connection.commit()
+    addDummyData(cursor,dbPath)
+    connection.commit()
     print('done')

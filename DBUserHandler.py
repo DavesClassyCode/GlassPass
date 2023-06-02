@@ -170,9 +170,10 @@ class DBHandler():
         """
         if typeflag == 'Name':
             regexStr = '^[A-Za-z]+(((\'|\-|\.)?([A-Za-z])+))?$'
+            return re.match(regexStr, arg)
         if typeflag == 'Email':
             regexStr = '^[a-zA-Z0-9.!#$%&’*+=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$'
-        return re.match(regexStr, arg)
+            return re.match(regexStr, arg)
 
     def checkPasswordIntegrity(self, pwd):
         """
