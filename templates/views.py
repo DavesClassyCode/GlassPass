@@ -1,7 +1,8 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, Flask, make_response, request
 from DBUserHandler import DBHandler
 from exceptions import *
 import sqlite3
+
 
 views = Blueprint(__name__, "views")
 
@@ -28,10 +29,16 @@ def login():
     if request.method == 'POST':
         username = request.form['userName']
         password = request.form['password']
+        userCookie = request.form['userName']
+        resp = make_response('login.html')
+        resp.set_cookie('userName', userCookie)
+        sessionCookie = request.cookies.get('userName')
+
         try:
             db = DBHandler('SkateDB.db')
             if db.attemptLogin(password, Username=username):
-                print('successful login')
+                
+                print('successful login for ')
                 return render_template('times.html')
             else:
                 print('unsuccessful login')
@@ -53,7 +60,7 @@ def login():
     else:
         request.method=='GET'
         print("GET: render login.html")
-        return render_template("login.html")
+        return render_template("login.html", sessionCookie = sessionCookie), resp
 
 @views.route("/createAccount")
 def createAccount():
@@ -81,7 +88,6 @@ def register():
     finally:
         del db
     return render_template("createAccount.html")
-
 
 
 """
