@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, Flask, make_response
 from DBUserHandler import DBHandler
 from exceptions import *
 import sqlite3
@@ -27,6 +27,11 @@ def login():
     if request.method == 'POST':
         username = request.form['userName']
         password = request.form['password']
+
+        userCookie = request.form['userName']
+        resp = make_response("userName")
+        resp.set_cookie('userName', userCookie)
+
         try:
             # db = DBHandler('SkateDB.db')
             db = DBHandler()
