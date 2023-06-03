@@ -117,6 +117,12 @@ html{
     margin-right: 100px;
   }
 
+  .icon{
+    max-height: 100px;
+    width: auto;
+    justify-content: center;
+  }
+
   /* flexbox container */
 .row {
     display: -webkit-flex;

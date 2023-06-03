@@ -15,7 +15,7 @@
   <nav>
   <!-- Logo --><div class="header-wrapper">
   
-   <a href="{{'/'}}"><img class="header-icon" src="https://i.ibb.co/9q1349F/Glass-Pass-1-1.png"  alt="Glass-Pass-1-1" border="0"></a>
+    <a href="{{'/'}}"><img class="header-icon" src="{{ url_for('static', filename='logo.png') }}"  alt="Glass-Pass-1-1" border="0"></a>
 
       <ul>
 
@@ -71,44 +71,44 @@
        powerful features, Glass Pass is the ideal solution for anyone looking for a convenient and efficient way to book and pay for ice rinks.</p>
   </div>
 
-  <div class="row">
-    <div class="column" style="background-color:rgb(177, 233, 255);text-align:center;">Email Us
-    <br><a href="mailto:detroiticeskatingclub@gmail.com">detroiticeskatingclub@gmail.com</a>
-  </div>
-    <div class="column" style="background-color:rgb(177, 233, 255);text-align:center;">Call Us
-      <br><a href="tel:999-999-9999">999-999-9999</a>
-    </div>
-    <div class="column" style="background-color:rgb(177, 233, 255);text-align:center;">
-      <a href="https://goo.gl/maps/xsqJc2joKKqDrMSZ8"><img class="icon" src="{{ url_for('static', filename='Address.png') }}"  alt=""  width="50" height="50"></a><br>
-      <a href='https://goo.gl/maps/xsqJc2joKKqDrMSZ8'>318 Meadowbrooke Road</a>
-    </div>
-    <div class="column" style="background-color:rgb(177, 233, 255);text-align:center;">
-      <a href="https://www.facebook.com/detroitSkatingClub/"><img class="icon" src="{{ url_for('static', filename='Facebook.png') }}"  alt=""  width="50" height="50"></a>
-    </div>
-    <div class="column" style="background-color:rgb(177, 233, 255);text-align:center;">
-      <a href="https://www.instagram.com/dscclub/?hl=en"><img class="icon" src="{{ url_for('static', filename='Instagram.png') }}"  alt=""  width="50" height="50"></a>
-    </div>
-    <div class="column" style="background-color:rgb(177, 233, 255);text-align:center;">
-      <a href="https://twitter.com/dscclub?lang=en"><img class="icon" src="{{ url_for('static', filename='Twitter.png') }}"  alt=""  width="50" height="50"></a>
-    </div>
-  </div>
-  <br>
-  <div class="row">
-    <div class="column" style="background-color:rgb(177, 233, 255);text-align:center;">
-      <a href="https://github.com/Plasaryn/PolyrhythmSkate"><img src="https://1000logos.net/wp-content/uploads/2021/05/GitHub-logo.png" alt="Github Repository" width="100" height="50"></a>
-    </div>
-    <div class="column" style="background-color:rgb(177, 233, 255);text-align:center;">
-      <a href="https://discord.gg/m46PqcFg"><img src="https://cdn.freebiesupply.com/logos/large/2x/discord-logo-png-transparent.png" alt="Discord Sever" width="50" height="55"></a>
-    </div>
-    <div class="column" style="background-color:rgb(177, 233, 255);text-align:center;">
-      <a href="https://trello.com/b/rp8kmPJN/polyrhythmskate"><img src="https://cdn.freebiesupply.com/logos/thumbs/2x/trello-logo.png" alt="Trello" width="70" height="50"></a>
-    </div>
-    <div class="column" style="background-color:rgb(177, 233, 255);text-align:center;">
-      <a href="https://drive.google.com/drive/u/3/folders/1eqTQ-J5zc2gWF0qj1znDms-nI8WNvxbZ"><img src="https://upload.wikimedia.org/wikipedia/commons/d/da/Google_Drive_logo.png" alt="Google Drive" width="50" height="50"></a>
-    </div>
-  </div>
   </body>
   
 </body>
+
+<div class="row">
+  <div class="column" style="background-color:rgb(177, 233, 255);text-align:center;">
+    <a href="mailto:detroiticeskatingclub@gmail.com"><img class="icon" src="{{ url_for('static', filename='Email.png') }}"  alt=""  width="25" height="25"></a><br>
+    <a href="mailto:detroiticeskatingclub@gmail.com">Email Us</a>
+  </div>
+    <div class="column" style="background-color:rgb(177, 233, 255);text-align:center;">
+      <a href="tel:999-999-9999"><img class="icon" src="{{ url_for('static', filename='Call.png') }}"  alt=""  width="25" height="25"></a><br>
+      <a href="tel:999-999-9999">999-9999</a>
+    </div>
+    <div class="column" style="background-color:rgb(177, 233, 255);text-align:center;">
+      <a href="https://goo.gl/maps/xsqJc2joKKqDrMSZ8"><img class="icon" src="{{ url_for('static', filename='Address.png') }}"  alt=""  width="25" height="25"></a><br>
+      <a href="https://goo.gl/maps/xsqJc2joKKqDrMSZ8" target="_blank">888 Denison</a>
+    </div>
+    <div class="column" style="background-color:rgb(177, 233, 255);text-align:center;">
+      <a href="https://www.facebook.com/detroitSkatingClub/" target="_blank"><img class="icon" src="{{ url_for('static', filename='Facebook.png') }}"  alt=""  width="50" height="50"></a>
+    </div>
+    <div class="column" style="background-color:rgb(177, 233, 255);text-align:center;">
+      <a href="https://www.instagram.com/dscclub/?hl=en" target="_blank"><img class="icon" src="{{ url_for('static', filename='Instagram.png') }}"  alt=""  width="50" height="50"></a>
+    </div>
+    <div class="column" style="background-color:rgb(177, 233, 255);text-align:center;">
+      <a href="https://twitter.com/dscclub?lang=en" target="_blank"><img class="icon" src="{{ url_for('static', filename='Twitter.png') }}"  alt=""  width="50" height="50"></a>
+    </div>
+    <div class="column" style="background-color:rgb(177, 233, 255);text-align:center;">
+      <a href="https://github.com/Plasaryn/PolyrhythmSkate" target="_blank"><img class="icon" src="{{ url_for('static', filename='GitHub.png') }}"  alt=""  width="100" height="50"></a>
+    </div>
+    <div class="column" style="background-color:rgb(177, 233, 255);text-align:center;">
+      <a href="https://discord.gg/" target="_blank"><img class="icon" src="{{ url_for('static', filename='Discord.png') }}"  alt=""  width="50" height="55"></a>
+    </div>
+    <div class="column" style="background-color:rgb(177, 233, 255);text-align:center;">
+      <a href="https://trello.com/b/rp8kmPJN/polyrhythmskate" target="_blank"><img class="icon" src="{{ url_for('static', filename='Trello.png') }}"  alt=""  width="60" height="50"></a>
+    </div>
+    <div class="column" style="background-color:rgb(177, 233, 255);text-align:center;">
+      <a href="https://drive.google.com/drive/u/3/folders/1eqTQ-J5zc2gWF0qj1znDms-nI8WNvxbZ" target="_blank"><img class="icon" src="{{ url_for('static', filename='Drive.png') }}"  alt=""  width="50" height="50"></a>
+    </div>
+  </div>
 
 </html>
