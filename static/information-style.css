@@ -116,3 +116,18 @@ html{
     justify-content: left;
     margin-right: 100px;
   }
+
+  /* flexbox container */
+.row {
+    display: -webkit-flex;
+    display: flex;
+  }
+  
+  /* 3 columns for flexbox */
+  .column {
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    padding: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+  }
