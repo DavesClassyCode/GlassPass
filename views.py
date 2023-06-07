@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, Flask, make_response
+from flask import Blueprint, render_template, request, Flask, make_response, session
 from DBUserHandler import DBHandler
 from exceptions import *
 import sqlite3
@@ -20,6 +20,8 @@ def information():
 
 @views.route("/times")
 def times():
+    if "userName" in session:
+        userName = session["userName"]
     return render_template("times.html")
 
 @views.route("/login", methods=['POST','GET'])
@@ -27,11 +29,12 @@ def login():
     if request.method == 'POST':
         username = request.form['userName']
         password = request.form['password']
-
+        """
         userCookie = request.form['userName']
         resp = make_response("userName")
         resp.set_cookie('userName', userCookie)
-
+        """
+        session["userName"] = username    
         try:
             # db = DBHandler('SkateDB.db')
             db = DBHandler()
@@ -73,7 +76,7 @@ def createAccount():
             # db = DBHandler('SkateDB.db')
             db = DBHandler()
             if db.insertNewUserData(firstname, lastname, username, email, password):
-                return render_template("times.html")
+                return render_template("accountCreated.html")
         except FileNotFoundError as e:
             print(e)
             return render_template("createAccount.html")
@@ -88,6 +91,13 @@ def createAccount():
             return render_template("createAccount.html")
     else:
         return render_template("createAccount.html")
+
+@views.route('/logout')
+def logout():
+    session.pop("userName", None)
+    return render_template("index.html")
+
+
 
 # @views.route('/register', methods=['POST'])
 # def register():
