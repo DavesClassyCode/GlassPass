@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='account-style.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/account-style.css') }}" />
 
 </head>
 
@@ -15,23 +15,14 @@
     <nav>
     <!-- Logo --><div class="header-wrapper">
     
-     <a href="{{'/'}}"><img class="header-icon" src="{{ url_for('static', filename='logo.png') }}"  alt="Glass-Pass-1-1" border="0"></a>
-
-        <ul>
-
-        
-        <!-- <li><a href="{{'/'}}">Home</a></li> -->
-
-        <li><a href="{{'/pricing'}}">Pricing</a></li>
-
-        <li><a href="{{'/times'}}">Available Times</a></li>
-
-        <li><a href="{{'/information'}}">Information</a></li>
-
-        <li><a href="{{'/login'}}">Login</a></li>
-
-        <li><a href="{{'/createAccount'}}">Create Account</a></li>
-        </ul>
+     <a href="{{'/'}}"><img class="header-icon" src="{{ url_for('static', filename='images/logo.png') }}"  alt="Glass-Pass-1-1" border="0"></a>
+     <ul>
+        <li><a href="{{ url_for('pricing') }}">Pricing</a></li>
+        <li><a href="{{ url_for('times') }}">Available Times</a></li>
+        <li><a href="{{ url_for('information') }}">Information</a></li>
+        <li><a href="{{ url_for('login') }}">Login</a></li>
+        <li><a href="{{ url_for('createAccount') }}">Create Account</a></li>
+      </ul>
     </div>
     </nav>      
 </header>
@@ -56,7 +47,7 @@
             </svg>
 
         <p class="login-label">Username </p>
-        <input id="userName" type="text" name="userName" class="login-inputbox"/>
+        <input id="username" type="text" name="username" class="login-inputbox"/>
         <p class="login-label">Password </p>
         <input id="password" type="password" name="password" class="login-inputbox"/>
         <div>

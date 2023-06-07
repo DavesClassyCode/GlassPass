@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Polyrythm Skate</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{ url_for('static', filename= 'css/account-style.css') }}" />
+
+</head>
+<header>
+  <nav>
+  <!-- Logo --><div class="header-wrapper">
+  
+    <a href="{{'/'}}"><img class="header-icon" src="{{ url_for('static', filename='images/logo.png') }}"  alt="Glass-Pass-1-1" border="0"></a>
+    <ul>
+      <li><a href="{{ url_for('pricing') }}">Pricing</a></li>
+      <li><a href="{{ url_for('times') }}">Available Times</a></li>
+      <li><a href="{{ url_for('information') }}">Information</a></li>
+      <li><a href="{{ url_for('login') }}">Login</a></li>
+      <li><a href="{{ url_for('createAccount') }}">Create Account</a></li>
+    </ul>
+  </div>
+  </nav>      
+</header>
+
+<body>
+
+  <div class="form-wrapper">
+    <form class="creation-form" action="/createAccount" method="POST">
+
+      <label class="login-label" for="firstname">First Name:</label>
+      <input class="login-inputbox" type="text" id="firstname" name="firstname" required>
+
+      <label class="login-label" for="lastname">Last Name:</label>
+      <input class="login-inputbox" type="text" id="lastname" name="lastname" required>
+
+      <label class="login-label" for="username">Username:</label>
+      <input class="login-inputbox" type="text" id="username" name="username" required>
+
+      <label class="login-label" for="password">Password:</label>
+      <input class="login-inputbox" type="password" id="password" name="password" required>
+
+      <label class="login-label" for="email">e-mail:</label>
+      <input class="login-inputbox" type="email" id="email" name="email" required>
+ 
+      <input class="login-button" type="submit" value="Create Account">
+
+      <div class="login-label">
+        Already have an account?
+        <a href="{{'/login'}}"> Login!</a>
+      </div>
+    </form>
+  </div>
+</body>
+
+</html>

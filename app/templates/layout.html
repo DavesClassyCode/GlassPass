@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Polyrythm Skate</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/account-style.css') }}" />
+  </head>
+
+<body>
+  <header>
+    <nav>
+    <!-- Logo --><div class="header-wrapper">
+    
+     <a href="{{'/'}}"><img class="header-icon" src="{{ url_for('static', filename='images/logo.png') }}"  alt="Glass-Pass-1-1" border="0"></a>
+      <ul>
+        <li><a href="{{ url_for('pricing') }}">Pricing</a></li>
+        <li><a href="{{ url_for('times') }}">Available Times</a></li>
+        <li><a href="{{ url_for('information') }}">Information</a></li>
+        <li><a href="{{ url_for('login') }}">Login</a></li>
+        <li><a href="{{ url_for('createAccount') }}">Create Account</a></li>
+      </ul>
+    </div>
+    </nav>      
+</header>
+
+  <div class="content-wrapper">
+    {% block pagecontent %}
+    {% endblock %}
+  </div>
+</body>
+</html>

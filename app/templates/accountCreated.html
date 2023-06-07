@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename= 'account-style.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/account-style.css') }}" />
 
 </head>
 <header>
@@ -15,22 +15,13 @@
         <div class="header-wrapper">
 
             <a href="{{'/'}}"><img class="header-icon" src="https://i.ibb.co/9q1349F/Glass-Pass-1-1.png"
-                    alt="Glass-Pass-1-1" border="0"></a>
-
+                alt="Glass-Pass-1-1" border="0"></a>
             <ul>
-
-
-                <!-- <li><a href="{{'/'}}">Home</a></li> -->
-
-                <li><a href="{{'/pricing'}}">Pricing</a></li>
-
-                <li><a href="{{'/times'}}">Available Times</a></li>
-
-                <li><a href="{{'/information'}}">Information</a></li>
-
-                <li><a href="{{'/login'}}">Login</a></li>
-
-                <li><a href="{{'/createAccount'}}">Create Account</a></li>
+                <li><a href="{{ url_for('pricing') }}">Pricing</a></li>
+                <li><a href="{{ url_for('times') }}">Available Times</a></li>
+                <li><a href="{{ url_for('information') }}">Information</a></li>
+                <li><a href="{{ url_for('login') }}">Login</a></li>
+                <li><a href="{{ url_for('createAccount') }}">Create Account</a></li>
             </ul>
         </div>
     </nav>
@@ -42,8 +33,6 @@
     <!-- Login Input Boxes -->
     <div class="form-wrapper">
         <form class="login-form" action="/login" method="POST">
-            <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-            <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
             <svg width="100%" height="100%" viewBox="0 0 321 260" version="1.1" xmlns="http://www.w3.org/2000/svg"
                 xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/"
                 style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">

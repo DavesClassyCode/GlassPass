@@ -1,42 +1,40 @@
-from flask import Blueprint, render_template, request, Flask, make_response, session
+from app import app, db
+from flask import Blueprint, render_template, request, redirect, url_for, Flask, make_response, session
 from DBUserHandler import DBHandler
 from exceptions import *
 import sqlite3
 
-views = Blueprint(__name__, "views")
-
-@views.route("/")
+@app.route("/")
 def home():
-    return render_template("index.html")
+    return render_template("login.html")
 
-@views.route("/pricing")
+@app.route("/pricing")
 def pricing():
     return render_template("pricing.html")
 
 
-@views.route("/information")
+@app.route("/information")
 def information():
     return render_template("information.html")
 
-@views.route("/times")
+@app.route("/times")
 def times():
-    if "userName" in session:
-        userName = session["userName"]
+    if "username" in session:
+        username = session["username"]
     return render_template("times.html")
 
-@views.route("/login", methods=['POST','GET'])
+@app.route("/login", methods=['POST','GET'])
 def login():
     if request.method == 'POST':
-        username = request.form['userName']
+        username = request.form['username']
         password = request.form['password']
         """
-        userCookie = request.form['userName']
-        resp = make_response("userName")
-        resp.set_cookie('userName', userCookie)
+        userCookie = request.form['username']
+        resp = make_response("username")
+        resp.set_cookie('username', userCookie)
         """
-        session["userName"] = username    
+        session["username"] = username    
         try:
-            # db = DBHandler('SkateDB.db')
             db = DBHandler()
             if db.attemptLogin(password, Username=username):
                 print('successful login')
@@ -53,18 +51,14 @@ def login():
         except BadPasswordException as e:
             print(e)
             return render_template("login.html")
-        # if not db.attemptLogin(password, "", username):
-        #     print("Unsuccessful Login attempt")
-        #     return render_template("login.html")
-        # else:
-        #     print("Login Success!")
-        #     return render_template("times.html")
     else:
-        request.method=='GET'
-        # print("GET: render login.html")
         return render_template("login.html")
 
-@views.route("/createAccount", methods=['POST','GET'])
+@app.route("/accountCreated", methods=['POST','GET'])
+def accountCreated():
+    return render_template('accountCreated.html')
+
+@app.route("/createAccount", methods=['POST','GET'])
 def createAccount():
     if request.method == 'POST':
         firstname = request.form['firstname']
@@ -73,10 +67,9 @@ def createAccount():
         password = request.form['password']
         email = request.form['email']
         try:
-            # db = DBHandler('SkateDB.db')
             db = DBHandler()
             if db.insertNewUserData(firstname, lastname, username, email, password):
-                return render_template("accountCreated.html")
+                return redirect(url_for('accountCreated'))
         except FileNotFoundError as e:
             print(e)
             return render_template("createAccount.html")
@@ -92,34 +85,9 @@ def createAccount():
     else:
         return render_template("createAccount.html")
 
-@views.route('/logout')
+@app.route('/logout')
 def logout():
-    session.pop("userName", None)
+    session.pop("username", None)
     return render_template("index.html")
-
-
-
-# @views.route('/register', methods=['POST'])
-# def register():
-#     # firstname = request.form['firstname']
-#     # lastname = request.form['lastname']
-#     # username = request.form['username']
-#     # password = request.form['password']
-#     # email = request.form['email']
-#     # try:
-#     #     db = DBHandler('SkateDB.db')
-#     #     if db.insertNewUserData(firstname, lastname, username, email, password):
-#     #         return render_template("times.html")
-#     # except FileNotFoundError as e:
-#     #     print(e)
-#     # except UnsanitaryInputException as e:
-#     #     print(e)
-#     # except BadPasswordException as e:
-#     #     print(e)
-#     # except sqlite3.DataError as e:
-#     #     print(e)
-#     # finally:
-#     #     del db
-#     return render_template("createAccount.html")
 
 
