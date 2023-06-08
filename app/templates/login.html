@@ -26,7 +26,9 @@
             Login
         </button>
     </div>
-    <span id="login-error-message" style="color:red"> </span>
+    {% if message %}
+        <span id="login-error-message" style="color:red">{{ message }}</span>
+    {% endif %}
     <div class="login-label">
         Dont have an account?
         <a href="{{'/createAccount'}}"> Sign Up!</a>

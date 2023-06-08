@@ -1,11 +1,14 @@
-from app import app, db
-from flask import Blueprint, render_template, request, redirect, url_for, Flask, make_response, session
+from app import app
+from flask import render_template, request, redirect, url_for, make_response, session, jsonify, flash
+from app.models import Users
 from DBUserHandler import DBHandler
 from exceptions import *
 import sqlite3
 
 @app.route("/")
-def home():
+def index():
+    if "user" in session.keys():
+        return redirect(url_for('times'))
     return render_template("login.html")
 
 @app.route("/pricing")
@@ -19,40 +22,38 @@ def information():
 
 @app.route("/times")
 def times():
-    if "username" in session:
-        username = session["username"]
+    if "user" in session.keys():
+        user = session["user"]
     return render_template("times.html")
 
-@app.route("/login", methods=['POST','GET'])
+@app.route("/login", methods=['POST'])
 def login():
-    if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
-        """
-        userCookie = request.form['username']
-        resp = make_response("username")
-        resp.set_cookie('username', userCookie)
-        """
-        session["username"] = username    
-        try:
-            db = DBHandler()
-            if db.attemptLogin(password, Username=username):
-                print('successful login')
-                return render_template('times.html')
-            else:
-                print('unsuccessful login')
-                return render_template('login.html')
-        except FileNotFoundError as e:
-            print(e)
-            return render_template("login.html")
-        except UnsanitaryInputException as e:
-            print(e)
-            return render_template("login.html")
-        except BadPasswordException as e:
-            print(e)
-            return render_template("login.html")
-    else:
-        return render_template("login.html")
+    form = request.form
+    user = Users.query.filter_by(Username=form['username']).first()
+    message = None
+    try:
+        if not user:
+            message = 'Username not found.'
+            return render_template('login.html', message=message)
+        if user.check_password(form['password'], form['username']):
+            session['userID'] = user.UID
+            message = 'Successful Login.'
+            return render_template('times.html', message=message)
+        else:
+            message = 'Password was incorrect.'
+            return render_template('login.html', message=message)
+    except FileNotFoundError as e:
+        print(e)
+        message = 'File Not Found Error.'
+        return render_template('login.html', message=message)
+    except UnsanitaryInputException as e:
+        print(e)
+        message = 'Input contains illegal characters.'
+        return render_template('login.html', message=message)
+    except BadPasswordException as e:
+        print(e)
+        message = 'Password must be between 6 and 20 characters and contain at least 1 uppercase letter, 1 lowercase letter, 1 number and 1 special character.'
+        return render_template('login.html', message=message)
 
 @app.route("/accountCreated", methods=['POST','GET'])
 def accountCreated():
