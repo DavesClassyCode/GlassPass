@@ -36,7 +36,7 @@ def login():
             message = 'Username not found.'
             return render_template('login.html', message=message)
         if user.check_password(form['password'], form['username']):
-            session['userID'] = user.UID
+            session['user'] = user.UID
             message = 'Successful Login.'
             return render_template('times.html', message=message)
         else:
@@ -88,7 +88,8 @@ def createAccount():
 
 @app.route('/logout')
 def logout():
-    session.pop("username", None)
-    return render_template("index.html")
+    session.pop("user", None)
+    message = 'Logout Successful'
+    return render_template("login.html", message=message)
 
 
