@@ -40,7 +40,7 @@ def login():
             db = DBHandler()
             if db.attemptLogin(password, Username=username):
                 print('successful login')
-                return render_template('times.html')
+                return render_template('times.html', userName = session["userName"])
             else:
                 print('unsuccessful login')
                 return render_template('login.html')

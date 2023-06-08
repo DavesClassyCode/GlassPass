@@ -25,10 +25,15 @@
         <li><a href="{{'/times'}}">Available Times</a></li>
 
         <li><a href="{{'/information'}}">Information</a></li>
+        {% if userName %}
 
+        <li><a href="{{'/logout'}}">Logout</a></li>          
+
+        {% else %}
         <li><a href="{{'/login'}}">Login</a></li>
 
         <li><a href="{{'/createAccount'}}">Create Account</a></li>
+        {% endif %}
         </ul>
     </div>
     </nav>      
