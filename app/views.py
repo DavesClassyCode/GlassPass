@@ -7,8 +7,8 @@ import sqlite3
 
 @app.route("/")
 def index():
-    if "user" in session.keys():
-        return redirect(url_for('times'))
+    if "userID" in session.keys():
+        return redirect(url_for("times"))
     return render_template("login.html")
 
 @app.route("/pricing")
@@ -22,9 +22,15 @@ def information():
 
 @app.route("/times")
 def times():
-    if "user" in session.keys():
-        user = session["user"]
+    if "userID" in session.keys():
+        user = session["userID"]
     return render_template("times.html")
+
+@app.route("/booking")
+def booking():
+    if "userID" in session.keys():
+        user = session["userID"]
+    return render_template("booking.html")
 
 @app.route("/login", methods=['POST'])
 def login():
@@ -36,8 +42,8 @@ def login():
             message = 'Username not found.'
             return render_template('login.html', message=message)
         if user.check_password(form['password'], form['username']):
-            session['user'] = user.UID
-            message = 'Successful Login.'
+            session['userID'] = user.UID
+            message = f'Welcome, { user.FirstName }!'
             return render_template('times.html', message=message)
         else:
             message = 'Password was incorrect.'
@@ -88,7 +94,7 @@ def createAccount():
 
 @app.route('/logout')
 def logout():
-    session.pop("user", None)
+    session.pop("userID", None)
     message = 'Logout Successful'
     return render_template("login.html", message=message)
 
