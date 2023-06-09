@@ -1,36 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <title>Glass Pass</title>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="{{ url_for('static', filename= 'css/information-style.css') }}">
-  <style>
-
-  </style>
-</head>
-<header>
-  <nav>
-  <!-- Logo --><div class="header-wrapper">
-  
-    <a href="{{'/'}}"><img class="header-icon" src="{{ url_for('static', filename='logo.png') }}"  alt="Glass-Pass-1-1" border="0"></a>
-
-      <ul>
-
-        <li><a href="{{ url_for('pricing') }}">Pricing</a></li>
-        <li><a href="{{ url_for('times') }}">Available Times</a></li>
-        <li><a href="{{ url_for('information') }}">Information</a></li>
-        <li><a href="{{ url_for('index') }}">Login</a></li>
-        <li><a href="{{ url_for('createAccount') }}">Create Account</a></li>
-        <li><a href="{{ url_for('logout') }}">Log Out</a></li>
-      </ul>
-  </div>
-  </nav>      
-</header>
-
-<body>
+{% extends 'layout.html' %}
+{% block pagecontent %}
   <br>
   <br>
   <div class="row">
@@ -139,4 +108,4 @@ It is a long established fact that a reader will be distracted by the readable c
     </div>
   </div>
 
-</html>
+  {% endblock pagecontent %}
