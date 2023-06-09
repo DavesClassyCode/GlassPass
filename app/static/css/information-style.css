@@ -140,30 +140,25 @@ html{
     font-family: Arial, Helvetica, sans-serif;
   }
 
-  .layout-container {  display: grid;
-    grid-template-columns: auto;
-    grid-template-rows: auto;
-    gap: 20px 20px;
-    max-width: 1200px;
+  .layout-container {
+    align-self: center;
+    margin: 0 auto;
     font-family: Arial, Helvetica, sans-serif;
-    grid-auto-flow: row;
-    grid-template-areas:
-      "Information Main-Body Main-Body"
-      "Information Main-Body Main-Body"
-      "Information Main-Body Main-Body"
+    align-content: center;
+    display: grid; 
+    grid-template-columns: 385px 385px 385px; 
+    grid-template-rows: auto auto auto auto auto; 
+    gap: 20px; 
+    grid-template-areas: 
+      ". Main-Body Main-Body"
+      ". Main-Body Main-Body"
+      ". Main-Body Main-Body"
       "wide-row wide-row wide-row"
-      "column1 column2 column3";
+      "column1 column2 column3"; 
+      justify-content: center; 
   }
-  
-  .Information { grid-area: Information; }
-  
   .Main-Body { grid-area: Main-Body; }
-  
   .column1 { grid-area: column1; }
-  
   .column2 { grid-area: column2; }
-  
   .column3 { grid-area: column3; }
-  
   .wide-row { grid-area: wide-row; }
-  
