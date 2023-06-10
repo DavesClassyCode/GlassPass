@@ -1,4 +1,5 @@
 from app import app
+from datetime import timedelta
 from flask import render_template, request, redirect, url_for, make_response, session, jsonify, flash
 from app.models import Users
 from DBUserHandler import DBHandler
@@ -38,7 +39,6 @@ def times():
         message = f'Welcome, { user.FirstName }!'
         return render_template('times.html', message=message, user=user)
     return render_template("times.html")
-
 # Example for Anderson from David:
 # Line 48: User object instantiated with properties from database based on username
 # Line 59: 'user=user' user object is passed to render_template for use in times.html
@@ -132,6 +132,12 @@ def delete():
   ok = evt.delete(data["id"])
   msg = "OK" if ok else sys.last_value
   return make_response(msg, 200)
+
+
+@app.before_request
+def before_request():
+    session.permanent = True
+    app.permanent_session_lifetime = timedelta(minutes=30)
 
 
 
