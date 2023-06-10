@@ -26,9 +26,9 @@ def information():
 
 
 # When routed to times check for userID in session, if found:
-# Get userID from session
-# Instantiate user object by querying database for user properties using Users model
-# Pass user object to render_template for use in times.html
+# Line 36: Get userID from session
+# Line 37: Instantiate user object by querying database for user properties using Users model
+# Line 39: Pass user object to render_template for use in times.html
 @app.route("/times")
 def times():
     userID = None
@@ -40,8 +40,8 @@ def times():
     return render_template("times.html")
 
 # Example for Anderson from David:
-# User object instantiated with properties from database based on username
-# 'user=user' user object is passed to render_template for use in times.html
+# Line 48: User object instantiated with properties from database based on username
+# Line 59: 'user=user' user object is passed to render_template for use in times.html
 @app.route("/login", methods=['POST'])
 def login():
     form = request.form
