@@ -4,6 +4,8 @@ from app.models import Users
 from DBUserHandler import DBHandler
 from exceptions import *
 import sqlite3
+import sys
+from app import S2_lib as evt
 
 @app.route("/")
 def index():
@@ -97,5 +99,28 @@ def logout():
     session.pop("userID", None)
     message = 'Logout Successful'
     return render_template("login.html", message=message)
+
+# (B2) ENDPOINT - GET EVENTS
+@app.route("/get/", methods=["POST"])
+def get():
+  data = dict(request.form)
+  events = evt.get(int(data["month"]), int(data["year"]))
+  return "{}" if events is None else events
+
+# (B3) ENDPOINT - SAVE EVENT
+@app.route("/save/", methods=["POST"])
+def save():
+  data = dict(request.form)
+  ok = evt.save(data["s"], data["e"], data["t"], data["c"], data["b"], data["id"] if "id" in data else None)
+  msg = "OK" if ok else sys.last_value
+  return make_response(msg, 200)
+
+# (B4) ENDPOINT - DELETE EVENT
+@app.route("/delete/", methods=["POST"])
+def delete():
+  data = dict(request.form)
+  ok = evt.delete(data["id"])
+  msg = "OK" if ok else sys.last_value
+  return make_response(msg, 200)
 
 
