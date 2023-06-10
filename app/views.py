@@ -7,6 +7,8 @@ import sqlite3
 import sys
 from app import S2_lib as evt
 
+
+#Render template for times if userID is in session, otherwise render login since user is not logged in
 @app.route("/")
 def index():
     if "userID" in session.keys():
@@ -22,18 +24,24 @@ def pricing():
 def information():
     return render_template("information.html")
 
+
+# When routed to times check for userID in session, if found:
+# Get userID from session
+# Instantiate user object by querying database for user properties using Users model
+# Pass user object to render_template for use in times.html
 @app.route("/times")
 def times():
+    userID = None
     if "userID" in session.keys():
-        user = session["userID"]
+        userID = session["userID"]
+        user = Users.query.filter_by(UID=userID).first()
+        message = f'Welcome, { user.FirstName }!'
+        return render_template('times.html', message=message, user=user)
     return render_template("times.html")
 
-@app.route("/booking")
-def booking():
-    if "userID" in session.keys():
-        user = session["userID"]
-    return render_template("booking.html")
-
+# Example for Anderson from David:
+# User object instantiated with properties from database based on username
+# 'user=user' user object is passed to render_template for use in times.html
 @app.route("/login", methods=['POST'])
 def login():
     form = request.form
@@ -44,9 +52,11 @@ def login():
             message = 'Username not found.'
             return render_template('login.html', message=message)
         if user.check_password(form['password'], form['username']):
+            # Here I decided not to put the full user object in the session as it would also contain
+            # the hash of the users password. (user.Password = encrypted password)
             session['userID'] = user.UID
             message = f'Welcome, { user.FirstName }!'
-            return render_template('times.html', message=message)
+            return render_template('times.html', message=message, user=user)
         else:
             message = 'Password was incorrect.'
             return render_template('login.html', message=message)
@@ -122,5 +132,13 @@ def delete():
   ok = evt.delete(data["id"])
   msg = "OK" if ok else sys.last_value
   return make_response(msg, 200)
+
+
+
+# @app.route("/booking")
+# def booking():
+#     if "userID" in session.keys():
+#         user = session["userID"]
+#     return render_template("booking.html")
 
 

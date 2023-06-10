@@ -9,6 +9,20 @@
 {% if message %}
   <span id="login-error-message" style="color:red">{{ message }}</span>
 {% endif %}
+<!--
+Example for Anderson from David:
+If user exists render list of user properties using user object passed
+to times.html template using render_template in views.py
+-->
+{% if user %}
+  <h5>User Object Data:</h5>
+  <ul>
+    <li>ID: {{ user.UID }}</li>
+    <li>Name: {{ user.FirstName }} {{ user.LastName }}</li>
+    <li>Username: {{ user.Username }}</li>
+    <li>Email: {{ user.Email }}</li>
+  </ul>
+{% endif %}
     <!-- (A) PERIOD SELECTOR -->
     <div id="calHead">
       <div id="calPeriod">
