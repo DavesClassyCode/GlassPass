@@ -78,6 +78,7 @@ body{
   align-items: center;
   align-items: baseline;
   justify-content: space-evenly;
+  flex-wrap: wrap;
 }
 
 .login-form{
@@ -160,6 +161,23 @@ body{
   padding-bottom: 30px;
   box-shadow: 2px 2px 10px rgb(96, 94, 114);
 }
+
+.pricing-list{
+  font-family: Arial, Helvetica, sans-serif;
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+  border: 1px;
+  background-color:  rgb(235, 239, 241);
+  border-radius: 5px;
+}
+
+.pricing-list li{
+  background-color: white;
+  padding: 5px;
+  border-radius: 5px;
+}
+
     
 
 

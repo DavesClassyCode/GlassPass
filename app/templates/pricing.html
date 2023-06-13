@@ -3,5 +3,24 @@
     {{ super() }}
 {% endblock %}
 {% block pagecontent %}
- <p>temporary body</p>
+ <div class="form-wrapper">
+    <form class="login-form">
+        <p class="login-label">Plan 1</p>
+        <ul class="pricing-list">
+            <li>20 hours of skating per month</li>
+            <li>1 free session with a coach</li>
+        </ul>
+        <p class="login-label">$30/month</p>
+    </form>
+    <form class="login-form">
+        <p class="login-label">Plan 2</p>
+        <ul class="pricing-list">
+            <li>Unlimited skating sessions</li>
+            <li>4 free session with a coach</li>
+            <li>Free equipment rentals</li>
+            <li>$10 voucher for consessions</li>
+        </ul>
+        <p class="login-label">$45/month</p>
+    </form>
+ </div>
  {% endblock pagecontent %}
