@@ -51,6 +51,7 @@ var cal = {
     cal.hfColor = document.getElementById("evtColor");
     cal.hfBG = document.getElementById("evtBG");
     cal.hfUID = document.getElementById("userID");
+    cal.hfSave = document.getElementById("evtSave");
     cal.hfDel = document.getElementById("evtDel");
 
     // (C2) MONTH & YEAR SELECTOR
@@ -238,10 +239,12 @@ var cal = {
       cal.hfColor.value = cal.events[id]["c"];
       cal.hfBG.value = cal.events[id]["b"];
       cal.hfUID.value = cal.events[id]["uid"];
+      cal.hfSave.value = "Update";
       cal.hfDel.style.display = "inline-block";
     } else {
       cal.hForm.reset();
       cal.hfID.value = "";
+      cal.hfSave.value = "Book";
       cal.hfDel.style.display = "none";
     }
     cal.hFormWrap.show();

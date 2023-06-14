@@ -69,8 +69,8 @@ to times.html template using render_template in views.py
         {% if user %}
         <input type="hidden" id="userID" value="{{ user.UID }}">
         {% endif %}
-        <input type="button" id="evtDel" value="Delete">
-        <input type="submit" id="evtSave" value="Save">
+        <input type="submit" id="evtSave">
+        <input type="button" id="evtDel" value="Cancel">
       </div>
     </form></dialog>
   {% endblock pagecontent %}
