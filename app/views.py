@@ -21,11 +21,19 @@ def index():
 
 @app.route("/pricing")
 def pricing():
+    if "userID" in session.keys():
+        userID = session["userID"]
+        user = Users.query.filter_by(UID=userID).first()
+        return render_template("pricing.html", user=user)
     return render_template("pricing.html")
 
 
 @app.route("/information")
 def information():
+    if "userID" in session.keys():
+        userID = session["userID"]
+        user = Users.query.filter_by(UID=userID).first()
+        return render_template("information.html", user=user)
     return render_template("information.html")
 
 
