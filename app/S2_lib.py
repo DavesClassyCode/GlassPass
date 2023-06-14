@@ -1,7 +1,18 @@
 # (A) LOAD SQLITE MODULE
-import sqlite3
+import sqlite3, datetime
 from calendar import monthrange
 DBFILE = "SkateDB.db"
+
+def checkConflicts(start,end):
+  conn = sqlite3.connect(DBFILE)
+  cursor = conn.cursor()
+  confSQL = "SELECT * FROM BOOKING WHERE ((start >= ?) AND (end <= ?))"
+  conflicts = cursor.execute(confSQL,(start,end)).fetchall()
+  conn.close()
+  if len(conflicts) == 0:
+    return False
+  else:
+    return True
 
 # (B) SAVE EVENT
 def save (start, end, txt, color, bg, user_id, id=None):
@@ -18,10 +29,15 @@ def save (start, end, txt, color, bg, user_id, id=None):
     data = data + (id,)
 
   # (B3) EXECUTE
-  cursor.execute(sql, data)
-  conn.commit()
-  conn.close()
-  return True
+  if checkConflicts(start, end):
+    print('Failed to insert or modify event')
+    return False
+  else:
+    cursor.execute(sql, data)
+    conn.commit()
+    conn.close()
+    print('Inserted or Modified event')
+    return True
 
 # (C) DELETE EVENT
 def delete(id):
