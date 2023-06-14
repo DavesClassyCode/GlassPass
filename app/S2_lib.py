@@ -30,13 +30,11 @@ def save (start, end, txt, color, bg, user_id, id=None):
 
   # (B3) EXECUTE
   if checkConflicts(start, end):
-    print('Failed to insert or modify event')
     return False
   else:
     cursor.execute(sql, data)
     conn.commit()
     conn.close()
-    print('Inserted or Modified event')
     return True
 
 # (C) DELETE EVENT
