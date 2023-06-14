@@ -113,7 +113,7 @@ def logout():
 @app.route("/get/", methods=["POST"])
 def get():
   data = dict(request.form)
-  events = evt.get(int(data["month"]), int(data["year"]))
+  events = evt.get(int(data["month"]), int(data["year"]), int(data["userID"]))
   return "{}" if events is None else events
 
 # (B3) ENDPOINT - SAVE EVENT

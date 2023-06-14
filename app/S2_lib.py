@@ -50,7 +50,7 @@ def delete(id):
   return True
 
 # (D) GET EVENTS
-def get(month, year):
+def get(month, year, userID):
   # (D1) CONNECT
   conn = sqlite3.connect(DBFILE)
   cursor = conn.cursor()
@@ -64,8 +64,8 @@ def get(month, year):
 
   # (D3) GET EVENTS
   cursor.execute(
-    "SELECT * FROM `Booking` WHERE ((`start` BETWEEN ? AND ?) OR (`end` BETWEEN ? AND ?) OR (`start` <= ? AND `end` >= ?))",
-    (start, end, start, end, start, end)
+    "SELECT * FROM `Booking` WHERE ((`start` BETWEEN ? AND ?) OR (`end` BETWEEN ? AND ?) OR (`start` <= ? AND `end` >= ?)) AND user_id = ?",
+    (start, end, start, end, start, end, userID)
   )
   rows = cursor.fetchall()
   if len(rows)==0:

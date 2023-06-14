@@ -10,6 +10,7 @@ var cal = {
   sL : 0, // last date of the selected month (yyyymmddhhmm)
   sFD : 0, // first day of the selected month (mon-sun)
   sLD : 0, // last day of the selected month (mon-sun)
+  sUserID : null, // current user database UID
   ready : 0, // to track loading
 
   // (A2) HTML ELEMENTS
@@ -108,6 +109,7 @@ var cal = {
     // (E1) SET SELECTED PERIOD
     cal.sMth = parseInt(cal.hMth.value);
     cal.sYear = parseInt(cal.hYear.value);
+    cal.sUserID = parseInt(cal.hfUID.value);
     cal.sDIM = new Date(cal.sYear, cal.sMth, 0).getDate();
     cal.sFD = new Date(cal.sYear, cal.sMth-1, 1).getDay();
     cal.sLD = new Date(cal.sYear, cal.sMth-1, cal.sDIM).getDay();
@@ -117,7 +119,7 @@ var cal = {
     cal.sL = parseInt(String(cal.sYear) + String(m) + String(cal.sDIM) + "2359");
 
     // (E2) AJAX GET EVENTS
-    cal.ajax("get", { month : cal.sMth, year : cal.sYear }, evt => {
+    cal.ajax("get", { month : cal.sMth, year : cal.sYear, userID : cal.sUserID }, evt => {
       cal.events = JSON.parse(evt);
       cal.draw();
     });
