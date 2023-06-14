@@ -8,8 +8,6 @@ import sqlite3
 import sys
 from app import S2_lib as evt
 
-
-#Render template for times if userID is in session, otherwise render login since user is not logged in
 @app.route("/")
 def index():
     if "userID" in session.keys():
@@ -27,7 +25,6 @@ def pricing():
         return render_template("pricing.html", user=user)
     return render_template("pricing.html")
 
-
 @app.route("/information")
 def information():
     if "userID" in session.keys():
@@ -36,11 +33,6 @@ def information():
         return render_template("information.html", user=user)
     return render_template("information.html")
 
-
-# When routed to times check for userID in session, if found:
-# Line 37: Get userID from session
-# Line 38: Instantiate user object by querying database for user properties using Users model
-# Line 40: Pass user object to render_template for use in times.html
 @app.route("/times")
 def times():
     userID = None
@@ -50,9 +42,7 @@ def times():
         message = f'Welcome, { user.FirstName }!'
         return render_template('times.html', message=message, user=user)
     return render_template("times.html")
-# Example for Anderson from David:
-# Line 48: User object instantiated with properties from database based on username
-# Line 59: 'user=user' user object is passed to render_template for use in times.html
+
 @app.route("/login", methods=['POST'])
 def login():
     form = request.form
@@ -63,8 +53,6 @@ def login():
             message = 'Username not found.'
             return render_template('login.html', message=message)
         if user.check_password(form['password'], form['username']):
-            # Here I decided not to put the full user object in the session as it would also contain
-            # the hash of the users password. (user.Password = encrypted password)
             session['userID'] = user.UID
             message = f'Welcome, { user.FirstName }!'
             return render_template('times.html', message=message, user=user)
@@ -150,7 +138,6 @@ def delete():
 def before_request():
     session.permanent = True
     app.permanent_session_lifetime = timedelta(minutes=30)
-
 
 
 @app.route("/booking")
