@@ -134,7 +134,6 @@ def save():
   data = dict(request.form)
   print(data)
   ok = evt.save(data["s"], data["e"], data["t"], data["c"], data["b"], data["uid"], data["id"] if "id" in data else None)
-  # msg = "OK" if ok else sys.last_value
   msg = 'OK' if ok else 'Time Conflict'
   return make_response(msg, 200)
 
