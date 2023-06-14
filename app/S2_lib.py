@@ -79,6 +79,6 @@ def get(month, year, userID):
     data[r[0]] = {
       "s" : r[1], "e" : r[2],
       "c" : r[4], "b" : r[5],
-      "t" : r[3]
+      "t" : r[3], "uid" : r[6]
     }
   return data
