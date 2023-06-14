@@ -13,7 +13,10 @@ from app import S2_lib as evt
 @app.route("/")
 def index():
     if "userID" in session.keys():
-        return redirect(url_for("times"))
+        userID = session["userID"]
+        user = Users.query.filter_by(UID=userID).first()
+        message = f'Welcome, { user.FirstName }!'
+        return render_template('times.html', message=message, user=user)
     return render_template("login.html")
 
 @app.route("/pricing")
@@ -129,7 +132,8 @@ def get():
 @app.route("/save/", methods=["POST"])
 def save():
   data = dict(request.form)
-  ok = evt.save(data["s"], data["e"], data["t"], data["c"], data["b"], data["id"] if "id" in data else None)
+  print(data)
+  ok = evt.save(data["s"], data["e"], data["t"], data["c"], data["b"], data["uid"], data["id"] if "id" in data else None)
   msg = "OK" if ok else sys.last_value
   return make_response(msg, 200)
 
@@ -149,10 +153,10 @@ def before_request():
 
 
 
-# @app.route("/booking")
-# def booking():
-#     if "userID" in session.keys():
-#         user = session["userID"]
-#     return render_template("booking.html")
+@app.route("/booking")
+def booking():
+    if "userID" in session.keys():
+        user = session["userID"]
+    return render_template("booking.html")
 
 
