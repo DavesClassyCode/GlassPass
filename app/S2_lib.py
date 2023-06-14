@@ -4,17 +4,17 @@ from calendar import monthrange
 DBFILE = "SkateDB.db"
 
 # (B) SAVE EVENT
-def save (start, end, txt, color, bg, id=None):
+def save (start, end, txt, color, bg, user_id, id=None):
   # (B1) CONNECT
   conn = sqlite3.connect(DBFILE)
   cursor = conn.cursor()
 
   # (B2) DATA & SQL
-  data = (start, end, txt, color, bg,)
+  data = (start, end, txt, color, bg, user_id)
   if id is None:
-    sql = "INSERT INTO `events` (`start`, `end`, `text`, `color`, `bg`) VALUES (?,?,?,?,?)"
+    sql = "INSERT INTO `Booking` (`start`, `end`, `text`, `color`, `bg`, `user_id`) VALUES (?,?,?,?,?,?)"
   else:
-    sql = "UPDATE `events` SET `start`=?, `end`=?, `text`=?, `color`=?, `bg`=? WHERE `id`=?"
+    sql = "UPDATE `Booking` SET `start`=?, `end`=?, `text`=?, `color`=?, `bg`=?, `user_id`=? WHERE `id`=?"
     data = data + (id,)
 
   # (B3) EXECUTE
@@ -30,7 +30,7 @@ def delete(id):
   cursor = conn.cursor()
 
   # (C2) EXECUTE
-  cursor.execute("DELETE FROM `events` WHERE `id`=?", (id,))
+  cursor.execute("DELETE FROM `Booking` WHERE `id`=?", (id,))
   conn.commit()
   conn.close()
   return True
@@ -50,7 +50,7 @@ def get(month, year):
 
   # (D3) GET EVENTS
   cursor.execute(
-    "SELECT * FROM `events` WHERE ((`start` BETWEEN ? AND ?) OR (`end` BETWEEN ? AND ?) OR (`start` <= ? AND `end` >= ?))",
+    "SELECT * FROM `Booking` WHERE ((`start` BETWEEN ? AND ?) OR (`end` BETWEEN ? AND ?) OR (`start` <= ? AND `end` >= ?))",
     (start, end, start, end, start, end)
   )
   rows = cursor.fetchall()

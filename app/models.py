@@ -17,3 +17,13 @@ class Users(db.Model):
     def check_password(self, password, username):
         dbHandler = DBHandler()
         return dbHandler.attemptLogin(password, Username=username)
+    
+class Booking(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    start = db.Column(db.DateTime(timezone=True))
+    end = db.Column(db.DateTime(timezone=True))
+    text = db.Column(db.String(50), nullable=False)
+    color = db.Column(db.String(50), nullable=False)
+    bg = db.Column(db.String(50), nullable=False)
+    user_id = db.Column(db.ForeignKey(Users.UID))
+    users = db.relationship(Users, backref='booking')

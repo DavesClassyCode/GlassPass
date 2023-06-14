@@ -66,6 +66,9 @@ to times.html template using render_template in views.py
       </div>
       <div class="evt100">
         <input type="hidden" id="evtID">
+        {% if user %}
+        <input type="hidden" id="userID" value="{{ user.UID }}">
+        {% endif %}
         <input type="button" id="evtDel" value="Delete">
         <input type="submit" id="evtSave" value="Save">
       </div>

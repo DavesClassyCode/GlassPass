@@ -18,7 +18,7 @@ var cal = {
   hFormWrap : null, hForm : null, // event form
   hfID : null, hfStart : null, // event form fields
   hfEnd : null, hfTxt : null,
-  hfColor : null, hfBG : null,
+  hfColor : null, hfBG : null, hfUID : null,
   hfDel : null,
 
   // (B) SUPPORT FUNCTION - AJAX FETCH
@@ -49,6 +49,7 @@ var cal = {
     cal.hfTxt = document.getElementById("evtTxt");
     cal.hfColor = document.getElementById("evtColor");
     cal.hfBG = document.getElementById("evtBG");
+    cal.hfUID = document.getElementById("userID");
     cal.hfDel = document.getElementById("evtDel");
 
     // (C2) MONTH & YEAR SELECTOR
@@ -234,6 +235,7 @@ var cal = {
       cal.hfTxt.value = cal.events[id]["t"];
       cal.hfColor.value = cal.events[id]["c"];
       cal.hfBG.value = cal.events[id]["b"];
+      cal.hfUID.value = cal.events[id]["uid"];
       cal.hfDel.style.display = "inline-block";
     } else {
       cal.hForm.reset();
@@ -254,7 +256,8 @@ var cal = {
       e : cal.hfEnd.value.replace("T", " "),
       t : cal.hfTxt.value,
       c : cal.hfColor.value,
-      b : cal.hfBG.value
+      b : cal.hfBG.value,
+      uid : cal.hfUID.value
     };
     if (cal.hfID.value != "") { data.id = parseInt(cal.hfID.value); }
 
