@@ -7,21 +7,9 @@
 {% endblock %}
 {% block pagecontent %}
 {% if message %}
-  <span id="login-error-message" style="color:red">{{ message }}</span>
-{% endif %}
-<!--
-Example for Anderson from David:
-If user exists render list of user properties using user object passed
-to times.html template using render_template in views.py
--->
-{% if user %}
-  <h5>User Object Data:</h5>
-  <ul>
-    <li>ID: {{ user.UID }}</li>
-    <li>Name: {{ user.FirstName }} {{ user.LastName }}</li>
-    <li>Username: {{ user.Username }}</li>
-    <li>Email: {{ user.Email }}</li>
-  </ul>
+    <div class="row">
+      <span id="welcome-message">{{ message }}</span>
+    </div>
 {% endif %}
     <!-- (A) PERIOD SELECTOR -->
     <div id="calHead">
@@ -39,7 +27,6 @@ to times.html template using render_template in views.py
       <div id="calDays"></div>
       <div id="calBody"></div>
     </div>
-
     <!-- (C) EVENT FORM -->
     <dialog id="calForm"><form method="dialog">
       <div id="evtCX">X</div>
@@ -73,4 +60,6 @@ to times.html template using render_template in views.py
         <input type="button" id="evtDel" value="Cancel">
       </div>
     </form></dialog>
+    
+ 
   {% endblock pagecontent %}
