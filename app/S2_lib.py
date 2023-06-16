@@ -6,7 +6,7 @@ DBFILE = "SkateDB.db"
 def checkConflicts(start,end):
   conn = sqlite3.connect(DBFILE)
   cursor = conn.cursor()
-  confSQL = "SELECT * FROM BOOKING WHERE ((start >= ?) OR (end <= ?))"
+  confSQL = "SELECT * FROM BOOKING WHERE ((start >= ?) AND (end <= ?))"
   conflicts = cursor.execute(confSQL,(start,end)).fetchall()
   conn.close()
   if len(conflicts) == 0:
