@@ -48,10 +48,7 @@
         <input id="evtBG" type="color" value="#ffdbdb" required>
       </div>
       <div class="evt100">
-        <label>Event</label>
-        <input id="evtTxt" type="text" required>
-      </div>
-      <div class="evt100">
+        <input id="evtTxt" type="hidden" value="Rink A">
         <input type="hidden" id="evtID">
         {% if user %}
         <input type="hidden" id="userID" value="{{ user.UID }}">
