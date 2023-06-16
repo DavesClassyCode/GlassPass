@@ -6,11 +6,6 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/S4C_calendar.css') }}">
 {% endblock %}
 {% block pagecontent %}
-{% if message %}
-    <div class="row">
-      <span id="welcome-message">{{ message }}</span>
-    </div>
-{% endif %}
     <!-- (A) PERIOD SELECTOR -->
     <div id="calHead">
       <div id="calPeriod">

@@ -9,9 +9,9 @@ body {
   overflow-x: hidden;
 }
 :root {
-  --bg-color-a: #07a6f6; /* page header + form label */
-  --bg-color-b: #3b39af; /* calendar header */
-  --bg-color-c: #3b39af; /* buttons */
+  --bg-color-a: #3b39af; /* page header + form label */
+  --bg-color-b: #07a6f6; /* calendar header */
+  --bg-color-c: #07a6f6; /* buttons */
 }
 
 /* (B) PERIOD SELECTOR */
