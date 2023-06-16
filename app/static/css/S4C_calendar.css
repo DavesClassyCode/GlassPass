@@ -44,9 +44,6 @@ body {
   padding: 5px 20px;
   background: var(--bg-color-c);
 }
-/* .calCell {
-  border-radius: 0 0 5px 5px;
-} */
 #calBody .calCell:last-child {
   border-radius: 0 0 5px 0;
 }
