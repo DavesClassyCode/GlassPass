@@ -1,4 +1,4 @@
-:root{
+:root {
   --formtopmargin: 50px
 }
 
@@ -19,12 +19,12 @@ nav li:last-child {
   margin-right: 0;
 } */
 
-html{
-  height:100%;
+html {
+  height: 100%;
   width: 100%;
 }
 
-header{
+header {
   /* max-height: 100px; */
   color: aliceblue;
   display: block;
@@ -35,13 +35,13 @@ header{
   background-color: rgb(240, 244, 245);
 }
 
-ul{
+ul {
   display: flex;
   max-width: 600px;
   justify-content: flex-end;
   align-items: center;
   box-sizing: border-box;
-  padding: 20px;  
+  padding: 20px;
 
 }
 
@@ -51,20 +51,20 @@ ul li {
   font-weight: bold;
 }
 
-.header-wrapper{
+.header-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.header-icon{
+.header-icon {
   max-height: 100px;
   width: auto;
   justify-content: left;
   margin-right: 100px;
 }
 
-body{
+body {
   background-color: rgb(240, 244, 245);
   align-content: center;
   align-self: center;
@@ -72,7 +72,7 @@ body{
   width: 100%;
 }
 
-.form-wrapper{
+.form-wrapper {
   display: flex;
   width: 100%;
   align-items: center;
@@ -81,7 +81,7 @@ body{
   flex-wrap: wrap;
 }
 
-.login-form{
+.login-form {
   margin-top: var(--formtopmargin);
   display: flex;
   flex-direction: column;
@@ -100,16 +100,16 @@ body{
 
 
 .login-button {
-    background-color: rgb(12, 144, 196);
-    color: white;
-    border: none;
-    height: 25px;
-    width: 208px;
-    border-radius: 3px;
-    cursor: pointer;
-    margin-top: 10px;
-    margin-left: 22px;
-    transition: 0.15s;
+  background-color: rgb(12, 144, 196);
+  color: white;
+  border: none;
+  height: 25px;
+  width: 208px;
+  border-radius: 3px;
+  cursor: pointer;
+  margin-top: 10px;
+  margin-left: 22px;
+  transition: 0.15s;
 }
 
 .login-button:hover {
@@ -117,35 +117,35 @@ body{
   box-shadow: 2px 2px 10px rgb(96, 94, 114);
 }
 
-.login-button:active{
+.login-button:active {
   opacity: 0.6;
   box-shadow: 2px 2px 10px rgb(96, 94, 114);
 }
 
-.login-label{
-    margin-bottom: 5px;
-    margin-top: 5px;
-    color: rgb(95, 177, 209);
-    text-align: center;
-    font-family: Arial;
-    font-weight: bold;
+.login-label {
+  margin-bottom: 5px;
+  margin-top: 5px;
+  color: rgb(95, 177, 209);
+  text-align: center;
+  font-family: Arial;
+  font-weight: bold;
 }
 
-.login-inputbox{
-    background-color: whitesmoke;
-    border-color: rgb(12, 144, 196);
-    width: 200px;
-    border-radius: 3px;
-    display: inline-block;
-    color-scheme: solid;
-    margin-left: 20px;
+.login-inputbox {
+  background-color: whitesmoke;
+  border-color: rgb(12, 144, 196);
+  width: 200px;
+  border-radius: 3px;
+  display: inline-block;
+  color-scheme: solid;
+  margin-left: 20px;
 }
 
-.account-signup-prompt{
+.account-signup-prompt {
   margin-top: 10px;
 }
 
-.creation-form{
+.creation-form {
   margin-top: var(--formtopmargin);
   display: flex;
   flex-direction: column;
@@ -162,23 +162,35 @@ body{
   box-shadow: 2px 2px 10px rgb(96, 94, 114);
 }
 
-.pricing-list{
+.pricing-list {
   font-family: Arial, Helvetica, sans-serif;
   display: flex;
   flex-wrap: wrap;
   text-align: center;
   border: 1px;
-  background-color:  rgb(235, 239, 241);
+  background-color: rgb(235, 239, 241);
   border-radius: 5px;
 }
 
-.pricing-list li{
+.pricing-list li {
   background-color: white;
   padding: 5px;
   border-radius: 5px;
 }
 
-    
-
-
-
+.update-form {
+  margin-top: var(--formtopmargin);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: rgb(255, 255, 255);
+  align-self: center;
+  width: 250px;
+  border-radius: 5px;
+  height: 500px;
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  box-shadow: 2px 2px 10px rgb(96, 94, 114);
+}

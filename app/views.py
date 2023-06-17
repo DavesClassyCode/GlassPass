@@ -147,3 +147,8 @@ def booking():
     return render_template("booking.html")
 
 
+
+@app.route("/update")
+def update():
+    
+    return render_template("update.html")
