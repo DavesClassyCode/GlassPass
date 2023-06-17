@@ -222,7 +222,7 @@ var cal = {
         // rowB.style.color = cal.events[id]["c"];
         // rowB.style.backgroundColor  = cal.events[id]["b"];
         rowB.style.color = "#FFFFFF"; //Hardcoded Color Values, Could remove DB Column technically
-        rowB.style.backgroundColor  = "#07a6f6"; //Hardcoded Color Values, Could remove DB Column technically
+        rowB.style.backgroundColor  = "#3b39af"; //Hardcoded Color Values, Could remove DB Column technically
         rowB.classList.add("w"+w);
         if (o!=0) { rowB.classList.add("o"+o); }
         rowB.onclick = () => cal.show(id);
@@ -242,7 +242,7 @@ var cal = {
       // cal.hfColor.value = cal.events[id]["c"];
       // cal.hfBG.value = cal.events[id]["b"];
       cal.hfColor.value = "#FFFFFF"; //Hardcoded Color Values, Could remove DB Column technically
-      cal.hfBG.value  = "#07a6f6"; //Hardcoded Color Values, Could remove DB Column technically
+      cal.hfBG.value  = "#3b39af"; //Hardcoded Color Values, Could remove DB Column technically
       cal.hfUID.value = cal.events[id]["uid"];
       cal.hfSave.value = "Update";
       cal.hfDel.style.display = "inline-block";
