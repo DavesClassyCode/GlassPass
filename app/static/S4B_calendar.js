@@ -155,7 +155,9 @@ var cal = {
     celler = day => {
       cell = document.createElement("div");
       cell.className = "calCell";
-      if (day) { cell.innerHTML = day; }
+      if (day) { cell.innerHTML = day; } 
+      if (day===undefined) { cell.classList.add("calBlank"); }
+      if (day!==undefined && day==nowDay) { cell.classList.add("calToday"); }
       rowB.appendChild(cell);
       cell = document.createElement("div");
       cell.className = "calCell";
