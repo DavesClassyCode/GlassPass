@@ -17,11 +17,9 @@
             <a href="{{'/'}}"><img class="header-icon" src="https://i.ibb.co/9q1349F/Glass-Pass-1-1.png"
                 alt="Glass-Pass-1-1" border="0"></a>
             <ul>
+                <li><a href="{{ url_for('times') }}">Schedule</a></li>
+                <li><a href="{{ url_for('information') }}">Info</a></li>
                 <li><a href="{{ url_for('pricing') }}">Pricing</a></li>
-                <li><a href="{{ url_for('times') }}">Available Times</a></li>
-                <li><a href="{{ url_for('information') }}">Information</a></li>
-                <li><a href="{{ url_for('index') }}">Login</a></li>
-                <li><a href="{{ url_for('createAccount') }}">Create Account</a></li>
                 <li><a href="{{ url_for('logout') }}">Log Out</a></li>
             </ul>
         </div>
