@@ -50,14 +50,14 @@ def login():
     message = None
     try:
         if not user:
-            message = 'Username not found.'
+            message = 'Username doesn\'t exist.'
             return render_template('login.html', message=message)
         if user.check_password(form['password'], form['username']):
             session['userID'] = user.UID
             message = f'Welcome, { user.FirstName }!'
             return render_template('times.html', message=message, user=user)
         else:
-            message = 'Password was incorrect.'
+            message = 'Incorrect Password.'
             return render_template('login.html', message=message)
     except FileNotFoundError as e:
         print(e)
@@ -106,7 +106,7 @@ def createAccount():
 @app.route('/logout')
 def logout():
     session.pop("userID", None)
-    message = 'Logout Successful'
+    message = 'Logout Successful.'
     return render_template("login.html", message=message)
 
 # (B2) ENDPOINT - GET EVENTS
