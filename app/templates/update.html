@@ -3,8 +3,13 @@
 {{ super() }}
 {% endblock %}
 {% block pagecontent %}
+
+{% if user %}
+<p>Editing information for: {{ user.UID }}, {{ user.email}}</p>
+{% endif %}
 <!-- Login Input Boxes -->
 <div class="form-wrapper">
+
     <form class="update-form" action="/update" method="POST">
         <svg width="100%" height="100%" viewBox="0 0 321 260" version="1.1" xmlns="http://www.w3.org/2000/svg"
             xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/"
@@ -38,22 +43,25 @@
                 </linearGradient>
             </defs>
         </svg>
-        <p class="login-label">enter your new username</p>
-        <input id="username" type="text" name="username" class="login-inputbox" required />
-        <p class="login-label">re-enter username</p>
-        <input id="username" type="text" name="username" class="login-inputbox" required />
-        <p class="login-label">enter your new email</p>
+        <p class="login-label">First Name</p>
+        <input id="first_name" type="text" name="first_name" class="login-inputbox" required />
+        <p class="login-label">Last Name</p>
+        <input id="last_name" type="text" name="last_name" class="login-inputbox" required />
+        <p class="login-label">E-mail</p>
         <input id="email" type="text" name="email" class="login-inputbox" required />
-        <p class="login-label">re-enter email</p>
-        <input id="email" type="text" name="email" class="login-inputbox" required />
-        <p class="login-label">new password </p>
+        <p class="login-label">New Password </p>
         <input id="password" type="password" name="password" class="login-inputbox" required />
-        <p class="login-label">re-enter password </p>
+        <p class="login-label">Re-enter Password </p>
         <input id="password" type="password" name="password" class="login-inputbox" required />
         <div>
-            <button class="login-button">
+            <button class="login-button" type="submit" value="Update Account">
                 Update Account
             </button>
+        </div>
+
+        <div class="login-label">
+            Wish to delete your account?
+            <a href="{{ url_for('update') }}">Delete Account</a>
         </div>
         {% if message %}
         <span id="update-error-message" style="color:red">{{ message }}</span>
