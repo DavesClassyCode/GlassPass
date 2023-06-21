@@ -93,8 +93,9 @@ body {
 
 a:link, a:visited {
   color: rgb(12, 144, 196);
-}
-
-a:hover {
-  font-weight: 600;
-}
+  text-decoration: none;
+  }
+  
+  a:hover {
+  text-decoration: underline;
+  }
