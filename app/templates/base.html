@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% block head %}
+    <title>Glass Pass</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/information-style.css') }}" />
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='favicon/apple-touch-icon.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='favicon/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='favicon/favicon-16x16.png') }}">
+    <link rel="manifest" href="{{ url_for('static', filename='favicon/site.webmanifest') }}">
+    {% endblock %}
+  </head>
+    <body>
+      <header>
+        <nav>
+          <div class="header-wrapper">
+            <a href="{{'/'}}"><img class="header-icon" src="{{ url_for('static', filename='images/logo.png') }}"  alt="Glass-Pass-1-1" border="0"></a>
+            <ul>
+              <li><a href="{{ url_for('times') }}">Schedule</a></li>
+              <li><a href="{{ url_for('information') }}">Info</a></li>
+              <li><a href="{{ url_for('pricing') }}">Pricing</a></li>
+              <li><a href="{{ url_for('logout') }}">Log Out</a></li>
+            </ul>
+          </div>
+        </nav>      
+      </header>
+      <div class="content-wrapper">
+        {% block pagecontent %}
+        {% endblock %}
+      </div>
+      <footer>
+        <p id="copyright">© Glass Pass 2023</p>
+      </footer>
+  </body>
+</html>

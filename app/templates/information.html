@@ -1,4 +1,4 @@
-{% extends 'layout.html' %}
+{% extends 'base.html' %}
 {% block head %}
     {{ super() }}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/information-style.css') }}" />
@@ -55,9 +55,4 @@
     </div>
     <div class="wide-row" style="background-color:white; padding: 20px;"><span style="font-size:18px"><img src="{{ url_for('static', filename='images/DSCMap.webp') }}" width="1000" height="570"></span></div>
   </div>
-
-  
-</body>
-
-
   {% endblock pagecontent %}
